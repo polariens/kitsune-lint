@@ -1,0 +1,12 @@
+# Files
+*.md
+.gitlab-ci*.yml
+Makefile
+
+# Folders
+.husky/*
+.vscode/*
+infra/*
+bin/*
+cache/*
+.vitepress/*
