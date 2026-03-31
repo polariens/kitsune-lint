@@ -32,10 +32,20 @@ export function typescript(options = {}) {
       files: resolvedFiles,
     })),
     {
+      plugins: {
+        kitsune: {
+          rules: {
+            'no-null-in-types': noNullInTypes,
+          },
+        },
+      },
+    },
+    {
       files: resolvedFiles,
       name: '@kitsune/typescript/rules',
       rules: {
-        eqeqeq: 'error',
+        // Prefer `===` or `!==` (never == or !=)
+        eqeqeq: ['error', 'always'],
         '@typescript-eslint/no-empty-object-type': [
           'error',
           {
@@ -60,23 +70,40 @@ export function typescript(options = {}) {
             custom: { regex: '^(OAuth|[A-Z][a-z])', match: true },
           },
           {
+            // camelCase for properties of interfaces/types
             selector: 'typeProperty',
-            format: null,
+            format: ['camelCase'],
             leadingUnderscore: 'allow',
             trailingUnderscore: 'allow',
           },
           {
+            // camelCase for class members
+            selector: 'classProperty',
+            format: ['camelCase'],
+            leadingUnderscore: 'allow',
+          },
+          {
+            // camelCase for methods of classes
+            selector: 'classMethod',
+            format: ['camelCase'],
+          },
+          {
+            // PascalCase for parameters of generic types of only one char
             selector: 'typeParameter',
             format: ['PascalCase'],
             custom: { regex: '^[A-Z]$', match: true },
           },
+          // PascalCase for enums names
           { selector: 'enum', format: ['PascalCase'] },
           {
+            // UPPER_CASE for enum members
             selector: 'enumMember',
             format: null,
             custom: { regex: `^['"]?[A-Z]+([-_][A-Z]+)*['"]?$`, match: true },
           },
+          // camelCase for object literal properties
           { selector: 'objectLiteralProperty', format: null },
+          // camelCase or PascalCase for imports
           { selector: 'import', format: ['camelCase', 'PascalCase'] },
         ],
         '@typescript-eslint/no-explicit-any': 'error',
@@ -86,8 +113,26 @@ export function typescript(options = {}) {
         '@typescript-eslint/array-type': 'error',
         'no-shadow': 'off',
         '@typescript-eslint/no-shadow': 'warn',
+        '@typescript-eslint/prefer-nullish-coalescing': 'error',
+        '@typescript-eslint/prefer-optional-chain': 'error',
+        // Block `console.log` only
         'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+        // Disallows concatenation of string literals that can be combined into a single literal (e.g., 'foo' + 'bar' should be 'foobar').
         'no-useless-concat': 'error',
+        'no-unused-vars': [
+          'error',
+          {
+            argsIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
+          },
+        ],
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            argsIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
+          },
+        ],
         'no-restricted-imports': [
           'error',
           {
@@ -118,7 +163,22 @@ export function typescript(options = {}) {
           { selector: 'ExportDefaultDeclaration', message: 'Prefer named exports' },
           { selector: 'ImportDeclaration[specifiers.length = 0]', message: 'Empty imports are not allowed' },
         ],
+        'no-duplicate-imports': 'error',
+        // No null in types/interfaces (allowed only with `Api` term)
+        'kitsune/no-null-in-types': [
+          'warn',
+          {
+            skipPattern: ['Api'],
+          },
+        ],
         ...extraRules,
+      },
+    },
+    {
+      // Disable export/import default in router plugin and config files
+      files: ['src/router/*.ts', '**/*.config.{ts,js}', '.*/**/*.{ts,js}'],
+      rules: {
+        'no-restricted-syntax': 'off',
       },
     },
   ];

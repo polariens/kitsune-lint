@@ -40,6 +40,7 @@ export function cleanCode(options = {}) {
         'max-params': ['error', maxParams],
 
         // --- Readability & Expressiveness ---
+        'no-negated-condition': 'error',
         'no-nested-ternary': 'error',
         'no-unneeded-ternary': 'error',
         'no-else-return': 'error',
@@ -49,6 +50,8 @@ export function cleanCode(options = {}) {
         curly: ['error', 'all'],
         'arrow-body-style': ['error', 'as-needed'],
         'no-multi-assign': 'error',
+        'no-unreachable-loop': 'error',
+        'no-unused-labels': 'error',
 
         // --- Immutability & Safety ---
         'no-param-reassign': ['error', { props: false }],
@@ -56,6 +59,8 @@ export function cleanCode(options = {}) {
         'no-sequences': 'error',
         'no-constructor-return': 'error',
         'no-promise-executor-return': 'error',
+        // Evita modificação de built-ins
+        'no-extend-native': 'error',
 
         // --- Code Organization ---
         'default-case-last': 'error',

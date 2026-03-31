@@ -17,7 +17,15 @@ import { resolveFiles } from '../utils.mjs';
  * @returns {import('eslint').Linter.Config[]}
  */
 export function vue(options = {}) {
-  const { files, apiStyle = 'script-setup', rules: extraRules = {} } = options;
+  const { 
+    files, 
+    apiStyle = 'script-setup', 
+    rules: extraRules = {}, 
+    componentsNameCasing = 'PascalCase', 
+    componentsNameCasingIgnores = [], 
+    propNameCasing = 'camelCase',
+    slotNameCasing = 'kebab-case', 
+  } = options;
 
   return [
     ...pluginVue.configs['flat/recommended'],
@@ -44,6 +52,18 @@ export function vue(options = {}) {
         'vue/no-unused-emit-declarations': 'error',
         'vue/no-useless-v-bind': 'error',
         'vue/padding-line-between-blocks': ['error', 'always'],
+        'vue/no-static-inline-styles': 'error',
+        'vue/require-typed-ref': 'error',
+        'vue/prop-name-casing': ['error', propNameCasing],
+        'vue/slot-name-casing': ['error', slotNameCasing],
+        'vue/component-name-in-template-casing': [
+          'error',
+          componentsNameCasing,
+          {
+            registeredComponentsOnly: false,
+            ignores: componentsNameCasingIgnores,
+          },
+        ],
         ...extraRules,
       },
     },

@@ -18,19 +18,7 @@ export function security(options = {}) {
   const { files, pluginEnabled = true, rules: extraRules = {} } = options;
   const resolvedFiles = resolveFiles('all', files);
 
-  const configs = [
-    {
-      files: resolvedFiles,
-      name: '@kitsune/security/rules',
-      rules: {
-        'no-eval': 'error',
-        'no-new-func': 'error',
-        'no-script-url': 'error',
-        'no-implied-eval': 'error',
-        ...extraRules,
-      },
-    },
-  ];
+  const configs = []
 
   if (pluginEnabled) {
     configs.push({
@@ -39,6 +27,20 @@ export function security(options = {}) {
       name: '@kitsune/security/plugin',
     });
   }
+
+  configs.push({
+    files: resolvedFiles,
+    name: '@kitsune/security/rules',
+    rules: {
+      'no-alert': 'error',
+      'no-eval': 'error',
+      'no-debugger': 'error',
+      'no-new-func': 'error',
+      'no-script-url': 'error',
+      'no-implied-eval': 'error',
+      ...extraRules,
+    },
+  })
 
   return configs;
 }
