@@ -1,7 +1,29 @@
 {
-  "name": "@merieli/kitsune-lint",
+  "name": "@polariens/kitsune-lint",
   "version": "1.0.0-rc.1",
   "description": "Opinionated ESLint & Prettier configs for high-quality Vue, TypeScript & Vitest projects. Clean code, sharp rules.",
+  "keywords": [
+    "eslint",
+    "prettier",
+    "lint",
+    "config",
+    "vue",
+    "typescript",
+    "vitest",
+    "clean-code",
+    "pinia",
+    "kitsune"
+  ],
+  "homepage": "https://github.com/Merieli/kitsune-lint#readme",
+  "bugs": {
+    "url": "https://github.com/Merieli/kitsune-lint/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Merieli/kitsune-lint.git"
+  },
+  "license": "MIT",
+  "author": "Polariens",
   "type": "module",
   "exports": {
     "./eslint": {
@@ -45,14 +67,21 @@
       "default": "./prettier/index.mjs"
     }
   },
+  "main": "index.js",
   "bin": {
-    "kitsune-prettierignore": "./bin/copy-prettierignore.mjs"
+    "kitsune-prettierignore": "bin/copy-prettierignore.mjs"
+  },
+  "directories": {
+    "example": "examples"
   },
   "files": [
     "eslint",
     "prettier",
     "bin"
   ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "peerDependencies": {
     "@eslint/js": ">=9.0.0",
     "eslint": ">=9.0.0",
@@ -75,18 +104,5 @@
     "eslint-plugin-pinia": {
       "optional": true
     }
-  },
-  "keywords": [
-    "eslint",
-    "prettier",
-    "lint",
-    "config",
-    "vue",
-    "typescript",
-    "vitest",
-    "clean-code",
-    "pinia",
-    "kitsune"
-  ],
-  "license": "MIT"
+  }
 }
