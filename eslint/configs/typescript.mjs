@@ -1,6 +1,7 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
+import noNullInTypes from '../rules/no-null-in-types';
 import { IGNORE_PATTERNS, resolveFiles } from '../utils.mjs';
 
 /**
@@ -113,8 +114,6 @@ export function typescript(options = {}) {
         '@typescript-eslint/array-type': 'error',
         'no-shadow': 'off',
         '@typescript-eslint/no-shadow': 'warn',
-        '@typescript-eslint/prefer-nullish-coalescing': 'error',
-        '@typescript-eslint/prefer-optional-chain': 'error',
         // Block `console.log` only
         'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
         // Disallows concatenation of string literals that can be combined into a single literal (e.g., 'foo' + 'bar' should be 'foobar').
