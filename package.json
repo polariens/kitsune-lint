@@ -1,6 +1,6 @@
 {
   "name": "@polariens/kitsune-lint",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0-rc.4",
   "description": "Opinionated ESLint & Prettier configs for high-quality Vue, TypeScript & Vitest projects. Clean code, sharp rules.",
   "keywords": [
     "eslint",
@@ -86,16 +86,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "globals": "^17.4.0"
+  },
   "peerDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@vitest/eslint-plugin": "^1.6.14",
+    "@eslint/js": "^9.0.0",
+    "@vitest/eslint-plugin": "^1.0.0",
     "eslint": ">=9.0.0",
-    "eslint-plugin-pinia": "^0.4.2",
+    "eslint-plugin-pinia": "^0.4.0",
     "eslint-plugin-security": "^4.0.0",
-    "eslint-plugin-vue": "^10.8.0",
-    "globals": "^17.4.0",
-    "typescript-eslint": "^8.58.0",
-    "vue-eslint-parser": "^10.4.0"
+    "eslint-plugin-vue": "^10.0.0",
+    "typescript-eslint": "^8.0.0",
+    "vue-eslint-parser": "^10.0.0"
   },
   "peerDependenciesMeta": {
     "@vitest/eslint-plugin": {
