@@ -22,7 +22,7 @@ export function typescript(options = {}) {
 
   return [
     {
-      ignores: ignores ?? ['**/*.config.{js,mjs,cjs,ts}', ...IGNORE_PATTERNS],
+      ignores: ignores ?? ['**/*.config.{js,mjs,cjs,ts}', '**/.prettierrc.*', ...IGNORE_PATTERNS],
     },
     {
       ...eslint.configs.recommended,
@@ -44,6 +44,12 @@ export function typescript(options = {}) {
     {
       files: resolvedFiles,
       name: '@kitsune/typescript/rules',
+      plugins: {
+        '@typescript-eslint': tseslint.plugin,
+      },
+      languageOptions: {
+        parser: tseslint.parser,
+      },
       rules: {
         // Prefer `===` or `!==` (never == or !=)
         eqeqeq: ['error', 'always'],
@@ -57,18 +63,18 @@ export function typescript(options = {}) {
         '@typescript-eslint/naming-convention': [
           'error',
           { selector: 'default', format: ['camelCase'] },
-          { selector: 'variable', format: ['camelCase'] },
+          { selector: 'variable', format: ['camelCase', 'UPPER_CASE'] },
           { selector: 'function', format: ['camelCase'] },
           { selector: 'class', format: ['PascalCase'] },
           {
             selector: 'interface',
             format: ['PascalCase'],
-            custom: { regex: '^(OAuth|[A-Z][a-z])', match: true },
+            custom: { regex: '^(?!I[A-Z])(?!.*Interface$)(OAuth|[A-Z][a-z]).*$', match: true },
           },
           {
             selector: 'typeAlias',
             format: ['PascalCase'],
-            custom: { regex: '^(OAuth|[A-Z][a-z])', match: true },
+            custom: { regex: '^(?!I[A-Z])(?!.*Type$)(OAuth|[A-Z][a-z]).*$', match: true },
           },
           {
             // camelCase for properties of interfaces/types
@@ -138,7 +144,7 @@ export function typescript(options = {}) {
             patterns: [
               {
                 regex: '^\\.\\.\\/.*',
-                message: 'Use o alias @/ ao invés de imports relativos com ../',
+                message: 'Use o alias @/ ou #/ ao invés de imports relativos com ../',
               },
             ],
           },

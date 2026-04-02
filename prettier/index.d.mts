@@ -31,14 +31,20 @@ export interface PrettierKitsuneConfig {
   vueIndentScriptAndStyle?: boolean;
 }
 
-export interface PrettierKitsuneExtraOptions {
-  /** Habilita todas as configurações do prettier para Vue @default false */
+/** Opções para a factory createPrettierKitsuneConfig */
+export interface CreatePrettierKitsuneOptions {
+  /** Overrides das regras originais do Prettier */
+  overrides?: Partial<PrettierKitsuneConfig>;
+  /** 
+   * Atalho para habilitar a indentação de script e style no Vue.
+   * Se true, sobrescreve o valor em overrides.
+   * @default false 
+   */
   vue?: boolean;
 }
 
 export declare const prettierKitsuneConfig: PrettierKitsuneConfig;
 
 export declare function createPrettierKitsuneConfig(
-  overrides?: Partial<PrettierKitsuneConfig>,
-  options?: PrettierKitsuneExtraOptions
+  options?: CreatePrettierKitsuneOptions
 ): PrettierKitsuneConfig;

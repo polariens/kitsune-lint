@@ -41,10 +41,10 @@ const defaults = {
  *
  * @example
  * // prettier.config.mjs
- * import { prettierKitsuneConfig } from '@merieli/kitsune-lint/prettier';
+ * import { prettierKitsuneConfig } from '@polariens/kitsune-lint/prettier';
  * export default prettierKitsuneConfig;
  */
-export const prettierKitsuneConfig = { ...defaults };
+const prettierKitsuneConfig = { ...defaults };
 
 /**
  * @typedef {Object} Options
@@ -52,27 +52,26 @@ export const prettierKitsuneConfig = { ...defaults };
  */
 
 /**
- * Factory para criar config Prettier com overrides.
+ * Factory para criar config Prettier com opções.
  *
- * @example
- * import { createPrettierKitsuneConfig } from '@merieli/kitsune-lint/prettier';
- * export default createPrettierKitsuneConfig({ printWidth: 120 });
- *
- * @example
- * // Com opções Vue
- * import { createPrettierKitsuneConfig } from '@merieli/kitsune-lint/prettier';
- * export default createPrettierKitsuneConfig({ printWidth: 120 }, { vue: true });
- *
- * @param {Partial<PrettierKitsuneOptions>} [overrides={}]
- * @param {Options} [options]
+ * @param {Object} [options={}]
+ * @param {Partial<PrettierKitsuneOptions>} [options.overrides={}] - Overrides diretos do Prettier
+ * @param {boolean} [options.vue=false] - Se deve indentar script/style no Vue
  * @returns {PrettierKitsuneOptions}
  */
-export function createPrettierKitsuneConfig(overrides = {}, options) {
-  const config = { ...defaults, ...overrides };
+function createPrettierKitsuneConfig(options = {}) {
+  const { overrides = {}, vue = false } = options;
 
-  if (options && options.vue) {
+  const config = {
+    ...defaults,
+    ...overrides
+  };
+
+  if (vue) {
     config.vueIndentScriptAndStyle = true;
   }
 
   return config;
 }
+
+export { createPrettierKitsuneConfig, prettierKitsuneConfig as default };

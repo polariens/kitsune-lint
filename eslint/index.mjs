@@ -24,15 +24,15 @@ export { vue } from './configs/vue.mjs';
  * Factory que compõe uma configuração ESLint completa a partir de módulos selecionados.
  *
  * @example
- * import { createKitsuneConfig } from '@merieli/kitsune-lint/eslint';
+ * import { createKitsuneConfig } from '@polariens/kitsune-lint/eslint';
  * export default await createKitsuneConfig();
  *
  * @example
- * import { createKitsuneConfig } from '@merieli/kitsune-lint/eslint';
+ * import { createKitsuneConfig } from '@polariens/kitsune-lint/eslint';
  * export default await createKitsuneConfig({ vue: true, pinia: true, tests: true, vitest: true });
  *
  * @example
- * import { createKitsuneConfig } from '@merieli/kitsune-lint/eslint';
+ * import { createKitsuneConfig } from '@polariens/kitsune-lint/eslint';
  * export default await createKitsuneConfig({
  *   base: { environment: 'node' },
  *   cleanCode: { maxDepth: 3, maxParams: 3, complexity: 10 },

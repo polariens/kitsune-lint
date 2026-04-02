@@ -1,4 +1,4 @@
-# @merieli/kitsune-lint 🦊
+# @polariens/kitsune-lint 🦊
 
 Opinionated ESLint & Prettier configs for high-quality Vue, TypeScript & Vitest projects.
 
@@ -13,7 +13,7 @@ Um pacote instalável que padroniza regras de linting e formatação entre múlt
 ### Instalação
 
 ```bash
-npm install --save-dev @merieli/kitsune-lint
+npm install --save-dev @polariens/kitsune-lint
 ```
 
 As peer dependencies devem ser instaladas no projeto consumidor:
@@ -37,7 +37,7 @@ A forma mais simples. O `createConfig` compõe os módulos selecionados:
 
 ```javascript
 // eslint.config.js
-import { createConfig } from '@merieli/kitsune-lint/eslint';
+import { createConfig } from '@polariens/kitsune-lint/eslint';
 
 export default await createConfig({
   vue: true,
@@ -81,10 +81,10 @@ Para controle total, importe cada módulo diretamente:
 
 ```javascript
 // eslint.config.js
-import { base } from '@merieli/kitsune-lint/eslint/base';
-import { typescript } from '@merieli/kitsune-lint/eslint/typescript';
-import { vue } from '@merieli/kitsune-lint/eslint/vue';
-import { pinia } from '@merieli/kitsune-lint/eslint/pinia';
+import { base } from '@polariens/kitsune-lint/eslint/base';
+import { typescript } from '@polariens/kitsune-lint/eslint/typescript';
+import { vue } from '@polariens/kitsune-lint/eslint/vue';
+import { pinia } from '@polariens/kitsune-lint/eslint/pinia';
 
 export default [
   ...base(),
@@ -99,7 +99,7 @@ export default [
 Use `extend` para adicionar configs de plugins externos (ex: `eslint-config-prettier`):
 
 ```javascript
-import { createConfig } from '@merieli/kitsune-lint/eslint';
+import { createConfig } from '@polariens/kitsune-lint/eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginVue from 'eslint-plugin-vue';
 
@@ -121,14 +121,14 @@ Uso direto da config padrão:
 
 ```javascript
 // prettier.config.mjs
-import { prettierConfig } from '@merieli/kitsune-lint/prettier';
+import { prettierConfig } from '@polariens/kitsune-lint/prettier';
 export default prettierConfig;
 ```
 
 Com overrides:
 
 ```javascript
-import { createPrettierConfig } from '@merieli/kitsune-lint/prettier';
+import { createPrettierConfig } from '@polariens/kitsune-lint/prettier';
 export default createPrettierConfig({ printWidth: 120 });
 ```
 
@@ -214,7 +214,7 @@ Relaxamentos para arquivos de teste — desliga regras rígidas de produção co
 ## Estrutura
 
 ```
-@merieli/kitsune-lint/
+@polariens/kitsune-lint/
 ├── package.json
 ├── eslint/
 │   ├── index.mjs            # Factory createConfig + re-exports

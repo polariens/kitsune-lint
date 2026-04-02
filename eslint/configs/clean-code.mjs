@@ -65,6 +65,7 @@ export function cleanCode(options = {}) {
         // --- Code Organization ---
         'default-case-last': 'error',
         'grouped-accessor-pairs': ['error', 'getBeforeSet'],
+        'max-statements': ['error', 20],
 
         // --- Bug Prevention ---
         'no-template-curly-in-string': 'warn',

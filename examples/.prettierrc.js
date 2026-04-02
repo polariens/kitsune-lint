@@ -1,26 +1,24 @@
 /**
- * Exemplo de prettier.config.mjs consumindo @merieli/kitsune-lint.
+ * Exemplo de prettier.config.mjs consumindo @polariens/kitsune-lint.
  * Copie para o projeto e ajuste conforme necessário.
  */
 
 // =================================================================
 // Opção 1: Usar a config padrão diretamente
 // =================================================================
-// import { prettierConfig } from '@merieli/kitsune-lint/prettier';
+// import { prettierConfig } from '@polariens/kitsune-lint/prettier';
 
 // export default prettierConfig;
 // =================================================================
 // Opção 2: Usar a config padrão diretamente
 // =================================================================
-import { createPrettierConfig } from '@merieli/kitsune-lint/prettier';
+import { createPrettierConfig } from '@polariens/kitsune-lint/prettier';
 
-export default createPrettierConfig(
+export default createPrettierConfig({
     // Overrides das opções do Prettier
-    {
-        printWidth: 120,
+    overrides : {
+        printWidth: 120
     },
     // Opções específicas para Vue (opcional)
-    {
-        vueIndentScriptAndStyle: true,
-    }
-)
+    vue: true
+},)
