@@ -27,7 +27,7 @@ export { typescript } from './configs/typescript.mjs';
 export { vitest } from './configs/vitest.mjs';
 export { vue } from './configs/vue.mjs';
 
-export interface CreateConfigOptions {
+export interface CreateKitsuneConfigOptions {
   /** Configuração base (globals do ambiente) @default true */
   base?: BaseOptions | boolean;
   /** Regras TypeScript + naming conventions @default true */
@@ -48,4 +48,4 @@ export interface CreateConfigOptions {
   extend?: Linter.Config[];
 }
 
-export declare function createConfig(options?: CreateConfigOptions): Promise<Linter.Config[]>;
+export declare function createKitsuneConfig(options?: CreateKitsuneConfigOptions): Promise<Linter.Config[]>;

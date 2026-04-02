@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} PrettierOptions
+ * @typedef {Object} PrettierKitsuneOptions
  * @property {number} [printWidth=100]
  * @property {number} [tabWidth=2]
  * @property {boolean} [useTabs=false]
@@ -17,7 +17,7 @@
  * @property {boolean} [vueIndentScriptAndStyle=false]
  */
 
-/** @type {PrettierOptions} */
+/** @type {PrettierKitsuneOptions} */
 const defaults = {
   printWidth: 100,
   tabWidth: 2,
@@ -41,39 +41,37 @@ const defaults = {
  *
  * @example
  * // prettier.config.mjs
- * import { prettierConfig } from '@merieli/kitsune-lint/prettier';
- * export default prettierConfig;
+ * import { prettierKitsuneConfig } from '@merieli/kitsune-lint/prettier';
+ * export default prettierKitsuneConfig;
  */
-export const prettierConfig = { ...defaults };
+export const prettierKitsuneConfig = { ...defaults };
 
 /**
- * @typedef {Object} VueOptions
- * @property {boolean} [vueIndentScriptAndStyle=false] - Indentação dentro de <script> e <style> em SFCs
+ * @typedef {Object} Options
+ * @property {boolean} [vue=false] - Habilita configurações relacionadas ao Vue, como vueIndentScriptAndStyle
  */
 
 /**
  * Factory para criar config Prettier com overrides.
  *
  * @example
- * import { createPrettierConfig } from '@merieli/kitsune-lint/prettier';
- * export default createPrettierConfig({ printWidth: 120 });
+ * import { createPrettierKitsuneConfig } from '@merieli/kitsune-lint/prettier';
+ * export default createPrettierKitsuneConfig({ printWidth: 120 });
  *
  * @example
  * // Com opções Vue
- * import { createPrettierConfig } from '@merieli/kitsune-lint/prettier';
- * export default createPrettierConfig({ printWidth: 120 }, { vueIndentScriptAndStyle: false });
+ * import { createPrettierKitsuneConfig } from '@merieli/kitsune-lint/prettier';
+ * export default createPrettierKitsuneConfig({ printWidth: 120 }, { vue: true });
  *
- * @param {Partial<PrettierOptions>} [overrides={}]
- * @param {VueOptions} [vueOptions]
- * @returns {PrettierOptions}
+ * @param {Partial<PrettierKitsuneOptions>} [overrides={}]
+ * @param {Options} [options]
+ * @returns {PrettierKitsuneOptions}
  */
-export function createPrettierConfig(overrides = {}, vueOptions) {
+export function createPrettierKitsuneConfig(overrides = {}, options) {
   const config = { ...defaults, ...overrides };
 
-  if (vueOptions) {
-    if (vueOptions.vueIndentScriptAndStyle !== undefined) {
-      config.vueIndentScriptAndStyle = vueOptions.vueIndentScriptAndStyle;
-    }
+  if (options && options.vue) {
+    config.vueIndentScriptAndStyle = true;
   }
 
   return config;

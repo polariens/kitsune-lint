@@ -1,4 +1,4 @@
-export interface PrettierConfig {
+export interface PrettierKitsuneConfig {
   /** Largura máxima da linha @default 100 */
   printWidth?: number;
   /** Espaços por nível de indentação @default 2 */
@@ -31,14 +31,14 @@ export interface PrettierConfig {
   vueIndentScriptAndStyle?: boolean;
 }
 
-export interface PrettierVueOptions {
-  /** Indentação dentro de <script> e <style> em Vue SFCs @default false */
-  vueIndentScriptAndStyle?: boolean;
+export interface PrettierKitsuneExtraOptions {
+  /** Habilita todas as configurações do prettier para Vue @default false */
+  vue?: boolean;
 }
 
-export declare const prettierConfig: PrettierConfig;
+export declare const prettierKitsuneConfig: PrettierKitsuneConfig;
 
-export declare function createPrettierConfig(
-  overrides?: Partial<PrettierConfig>,
-  vueOptions?: PrettierVueOptions
-): PrettierConfig;
+export declare function createPrettierKitsuneConfig(
+  overrides?: Partial<PrettierKitsuneConfig>,
+  options?: PrettierKitsuneExtraOptions
+): PrettierKitsuneConfig;

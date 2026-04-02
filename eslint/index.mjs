@@ -8,7 +8,7 @@ export { vitest } from './configs/vitest.mjs';
 export { vue } from './configs/vue.mjs';
 
 /**
- * @typedef {Object} CreateConfigOptions
+ * @typedef {Object} CreateKitsuneConfigOptions
  * @property {import('./configs/base.mjs').BaseOptions | boolean} [base=true]
  * @property {import('./configs/typescript.mjs').TypescriptOptions | boolean} [typescript=true]
  * @property {import('./configs/security.mjs').SecurityOptions | boolean} [security=true]
@@ -24,16 +24,16 @@ export { vue } from './configs/vue.mjs';
  * Factory que compõe uma configuração ESLint completa a partir de módulos selecionados.
  *
  * @example
- * import { createConfig } from '@merieli/kitsune-lint/eslint';
- * export default await createConfig();
+ * import { createKitsuneConfig } from '@merieli/kitsune-lint/eslint';
+ * export default await createKitsuneConfig();
  *
  * @example
- * import { createConfig } from '@merieli/kitsune-lint/eslint';
- * export default await createConfig({ vue: true, pinia: true, tests: true, vitest: true });
+ * import { createKitsuneConfig } from '@merieli/kitsune-lint/eslint';
+ * export default await createKitsuneConfig({ vue: true, pinia: true, tests: true, vitest: true });
  *
  * @example
- * import { createConfig } from '@merieli/kitsune-lint/eslint';
- * export default await createConfig({
+ * import { createKitsuneConfig } from '@merieli/kitsune-lint/eslint';
+ * export default await createKitsuneConfig({
  *   base: { environment: 'node' },
  *   cleanCode: { maxDepth: 3, maxParams: 3, complexity: 10 },
  *   vue: { apiStyle: 'composition' },
@@ -42,10 +42,10 @@ export { vue } from './configs/vue.mjs';
  *   vitest: true,
  * });
  *
- * @param {CreateConfigOptions} [options={}]
+ * @param {CreateKitsuneConfigOptions} [options={}]
  * @returns {Promise<import('eslint').Linter.Config[]>}
  */
-export async function createConfig(options = {}) {
+export async function createKitsuneConfig(options = {}) {
   const {
     base: baseOpt = true,
     typescript: tsOpt = true,
@@ -60,44 +60,23 @@ export async function createConfig(options = {}) {
 
   const configs = [];
 
-  if (baseOpt) {
-    const { base } = await import('./configs/base.mjs');
-    configs.push(...base(baseOpt === true ? {} : baseOpt));
-  }
+  const moduleMap = [
+    { opt: baseOpt, name: 'base', file: 'base' },
+    { opt: tsOpt, name: 'typescript', file: 'typescript' },
+    { opt: secOpt, name: 'security', file: 'security' },
+    { opt: cleanOpt, name: 'cleanCode', file: 'clean-code' },
+    { opt: vueOpt, name: 'vue', file: 'vue' },
+    { opt: piniaOpt, name: 'pinia', file: 'pinia' },
+    { opt: testsOpt, name: 'tests', file: 'tests' },
+    { opt: vitestOpt, name: 'vitest', file: 'vitest' },
+  ];
 
-  if (tsOpt) {
-    const { typescript } = await import('./configs/typescript.mjs');
-    configs.push(...typescript(tsOpt === true ? {} : tsOpt));
-  }
-
-  if (secOpt) {
-    const { security } = await import('./configs/security.mjs');
-    configs.push(...security(secOpt === true ? {} : secOpt));
-  }
-
-  if (cleanOpt) {
-    const { cleanCode } = await import('./configs/clean-code.mjs');
-    configs.push(...cleanCode(cleanOpt === true ? {} : cleanOpt));
-  }
-
-  if (vueOpt) {
-    const { vue } = await import('./configs/vue.mjs');
-    configs.push(...vue(vueOpt === true ? {} : vueOpt));
-  }
-
-  if (piniaOpt) {
-    const { pinia } = await import('./configs/pinia.mjs');
-    configs.push(...(await pinia(piniaOpt === true ? {} : piniaOpt)));
-  }
-
-  if (testsOpt) {
-    const { tests } = await import('./configs/tests.mjs');
-    configs.push(...tests(testsOpt === true ? {} : testsOpt));
-  }
-
-  if (vitestOpt) {
-    const { vitest } = await import('./configs/vitest.mjs');
-    configs.push(...(await vitest(vitestOpt === true ? {} : vitestOpt)));
+  for (const { opt, name, file } of moduleMap) {
+    if (opt) {
+      const mod = await import(`./configs/${file}.mjs`);
+      const configArr = await mod[name](opt === true ? {} : opt);
+      configs.push(...configArr);
+    }
   }
 
   configs.push(...extend);

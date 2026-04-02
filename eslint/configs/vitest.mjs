@@ -10,9 +10,9 @@ import { resolveFiles } from '../utils.mjs';
  * @property {Record<string, unknown>} [rules] - Regras adicionais ou overrides
  */
 
-const GHERKIN_PT = '^Dado [\\s\\S]+Quando [\\s\\S]+Então [\\s\\S]+';
+const GHERKIN_PT = '^Dado[^\\n]+\\n[\\s\\S]*Quando[^\\n]+\\n[\\s\\S]*Então[^\\n]+';
 const GHERKIN_PT_MESSAGE =
-  'O título do test() deve seguir o padrão Gherkin em português: "Dado ..., Quando ..., Então ..."';
+  'O título do test() deve seguir o padrão Gherkin em português: \\n"Dado ...,\\nQuando ...,\\nEntão ..."';
 
 /**
  * Regras do plugin Vitest para padronização de testes.
@@ -53,6 +53,7 @@ export async function vitest(options = {}) {
         'vitest/prefer-hooks-in-order': 'error',
         'vitest/prefer-to-be': 'error',
         'vitest/prefer-each': 'error',
+        'vitest/no-mocks-import': 'off',
         'vitest/max-nested-describe': ['error', { max: maxNestedDescribe }],
         ...extraRules,
       },

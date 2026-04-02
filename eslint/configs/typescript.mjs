@@ -1,7 +1,7 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
-import noNullInTypes from '../rules/no-null-in-types';
+import noNullInTypes from '../rules/no-null-in-types.mjs';
 import { IGNORE_PATTERNS, resolveFiles } from '../utils.mjs';
 
 /**
