@@ -27,9 +27,11 @@ export function typescript(options = {}) {
         '**/.prettierrc.*', 
         '**/_/*',
         '**/dist/',
+        '**/.vitepress/',
         '.gemini/',
         '.github',
         '.vscode',
+        '.husky',
         ...IGNORE_PATTERNS
       ],
     },
