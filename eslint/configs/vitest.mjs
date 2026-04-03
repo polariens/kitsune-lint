@@ -10,9 +10,13 @@ import { resolveFiles } from '../utils.mjs';
  * @property {Record<string, unknown>} [rules] - Regras adicionais ou overrides
  */
 
+// Padrões de título de teste em português.
+// Gherkin padrão (Dado, Quando, Então) e também "Deve ...".
 const GHERKIN_PT = '^Dado[^\\n]+(?:\\n\\s*(?:E|Mas)\\b[^\\n]+)*\\n\\s*Quando[^\\n]+(?:\\n\\s*(?:E|Mas)\\b[^\\n]+)*\\n\\s*Então[^\\n]+';
-const GHERKIN_PT_MESSAGE =
-  'O título do test() deve seguir o padrão Gherkin em português: "Dado ...\\nQuando ...\\nEntão ..."';
+const DEVE_PT = '^Deve\\s.+$';
+// Mensagem combinada para ambos os padrões.
+const TITLE_PATTERN_MESSAGE =
+  'O título do test() deve seguir o padrão Gherkin em português ("Dado ...\\nQuando ...\\nEntão ...") ou iniciar com "Deve ..."';
 
 /**
  * Regras do plugin Vitest para padronização de testes.
@@ -22,8 +26,9 @@ const GHERKIN_PT_MESSAGE =
 export async function vitest(options = {}) {
   const {
     files,
-    titlePattern = GHERKIN_PT,
-    titleMessage = GHERKIN_PT_MESSAGE,
+    // Aceita string ou array de strings para múltiplos padrões.
+    titlePattern = [GHERKIN_PT, DEVE_PT],
+    titleMessage = TITLE_PATTERN_MESSAGE,
     fn = 'test',
     maxNestedDescribe = 3,
     rules: extraRules = {},
@@ -40,9 +45,18 @@ export async function vitest(options = {}) {
         ...vitestPlugin.configs.recommended.rules,
         'vitest/consistent-test-filename': 'error',
         'vitest/consistent-test-it': ['error', { fn }],
+        // Constrói o padrão combinado (string ou array) para a regra.
         'vitest/valid-title': [
           'error',
-          { mustMatch: { [fn]: [titlePattern, titleMessage] } },
+          {
+            mustMatch: {
+              [fn]: [
+                // Se for array, une com "|" para regex alternativo.
+                Array.isArray(titlePattern) ? titlePattern.join('|') : titlePattern,
+                titleMessage,
+              ],
+            },
+          },
         ],
         'vitest/require-top-level-describe': 'error',
         'vitest/no-identical-title': 'error',

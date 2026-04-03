@@ -31,6 +31,8 @@ export function typescript(options = {}) {
         '.gemini/',
         '.github',
         '.vscode',
+        '.quasar',
+        '.coverage',
         '.husky',
         ...IGNORE_PATTERNS
       ],

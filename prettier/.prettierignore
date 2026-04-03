@@ -9,4 +9,6 @@ Makefile
 infra/*
 bin/*
 cache/*
-.vitepress/*
+**/.vitepress/*
+coverage/*
+.quasar/*

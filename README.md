@@ -12,24 +12,59 @@ Um pacote instalável que padroniza regras de linting e formatação entre múlt
 
 ### Instalação
 
+Primeiro, instale o pacote principal em seu projeto como dependência de desenvolvimento:
+
 ```bash
 npm install --save-dev @polariens/kitsune-lint
 ```
 
-As peer dependencies devem ser instaladas no projeto consumidor:
+As _peer dependencies_ correspondentes devem ser instaladas no projeto consumidor. Veja abaixo as opções de instalação dependendo do seu cenário.
+
+#### Instalação Completa (Todos os módulos)
+
+Se você planeja utilizar a configuração máxima com todos os módulos ativados no seu ecossistema (`security`, `cleanCode`, `pinia`, `vitest`, `typescript` e `vue`), execute este comando para instalar todas as ferramentas de uma vez:
+
+```bash
+npm install --save-dev eslint @eslint/js typescript-eslint globals eslint-plugin-security eslint-plugin-vue vue-eslint-parser eslint-plugin-pinia @vitest/eslint-plugin
+```
+
+#### Instalação Específica (Por módulo)
+
+Se preferir incluir apenas as peças que for usar, você deve sempre iniciar instalando as **Dependências Base**, que são essenciais para os módulos principais (que já vêm ativos por padrão, como `base`, `cleanCode` e `typescript`):
 
 ```bash
 npm install --save-dev eslint @eslint/js typescript-eslint globals
 ```
 
-Dependendo dos módulos habilitados, instale também:
+Em seguida, instale os complementos exclusivos para cada módulo extra que for habilitar em seu `createConfig()`:
 
-| Módulo     | Dependências extras                             |
-| ---------- | ------------------------------------------------ |
-| `security` | `eslint-plugin-security`                         |
-| `vue`      | `eslint-plugin-vue vue-eslint-parser`            |
-| `pinia`    | `eslint-plugin-pinia`                            |
-| `vitest`   | `@vitest/eslint-plugin`                          |
+**Módulo `security` (Habilitado por padrão)**
+Necessário para a suíte de regras focadas em prevenir vulnerabilidades de segurança e injeções de código:
+```bash
+npm install --save-dev eslint-plugin-security
+```
+
+**Módulo `vue`**
+Pacotes necessários para realizar o lint na sintaxe `<template>`, `script setup` e validar as regras do Vue 3:
+```bash
+npm install --save-dev eslint-plugin-vue vue-eslint-parser
+```
+> *(Exemplo prático de setup em um projeto para uso apenas dos essenciais e módulo Vue:)*
+> ```bash
+> npm install --save-dev eslint @eslint/js typescript-eslint globals eslint-plugin-vue vue-eslint-parser
+> ```
+
+**Módulo `pinia`**
+O verificador de store e regras recomendadas para o gerenciamento de estado via Pinia:
+```bash
+npm install --save-dev eslint-plugin-pinia
+```
+
+**Módulo `vitest`**
+Para linting focado em arquivos de teste especificados nativamente pelas boas práticas do Vitest:
+```bash
+npm install --save-dev @vitest/eslint-plugin
+```
 
 ### ESLint — Factory function (recomendado)
 
