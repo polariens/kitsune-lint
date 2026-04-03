@@ -36,6 +36,8 @@ export function vue(options = {}) {
         parser: vueParser,
         parserOptions: {
           parser: tseslint.parser,
+          extraFileExtensions: ['.vue'],
+          projectService: true,
         },
       },
       rules: {

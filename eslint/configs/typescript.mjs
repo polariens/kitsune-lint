@@ -22,7 +22,15 @@ export function typescript(options = {}) {
 
   return [
     {
-      ignores: ignores ?? ['**/*.config.{js,mjs,cjs,ts}', '**/.prettierrc.*', ...IGNORE_PATTERNS],
+      ignores: ignores ?? [
+        '**/*.config.{js,mjs,cjs,ts}', 
+        '**/.prettierrc.*', 
+        '**/_/*',
+        '.gemini/',
+        '.github',
+        '.vscode',
+        ...IGNORE_PATTERNS
+      ],
     },
     {
       ...eslint.configs.recommended,
@@ -49,6 +57,9 @@ export function typescript(options = {}) {
       },
       languageOptions: {
         parser: tseslint.parser,
+        parserOptions: {
+          projectService: true,
+        },
       },
       rules: {
         // Prefer `===` or `!==` (never == or !=)
@@ -180,8 +191,15 @@ export function typescript(options = {}) {
       },
     },
     {
+      // Disable naming convention rule for env.d.ts files
+      files: ['**/env.d.ts'],
+      rules: {
+        '@typescript-eslint/naming-convention': 'off',
+      },
+    },
+    {
       // Disable export/import default in router plugin and config files
-      files: ['src/router/*.ts', '**/*.config.{ts,js}', '.*/**/*.{ts,js}'],
+      files: ['src/router/*.ts', '**/*.d.{ts,js}', '**/*.config.{ts,js}', '.*/**/*.{ts,js}'],
       rules: {
         'no-restricted-syntax': 'off',
       },
