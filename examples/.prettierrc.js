@@ -6,15 +6,15 @@
 // =================================================================
 // Opção 1: Usar a config padrão diretamente
 // =================================================================
-// import { prettierConfig } from '@polariens/kitsune-lint/prettier';
+// import { prettierKitsuneConfig } from '@polariens/kitsune-lint/prettier';
 
-// export default prettierConfig;
+// export default prettierKitsuneConfig;
 // =================================================================
 // Opção 2: Usar a config padrão diretamente
 // =================================================================
-import { createPrettierConfig } from '@polariens/kitsune-lint/prettier';
+import { createPrettierKitsuneConfig } from '@polariens/kitsune-lint/prettier';
 
-export default createPrettierConfig({
+export default createPrettierKitsuneConfig({
     // Overrides das opções do Prettier
     overrides : {
         printWidth: 120

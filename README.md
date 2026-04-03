@@ -36,7 +36,7 @@ Se preferir incluir apenas as peças que for usar, você deve sempre iniciar ins
 npm install --save-dev eslint @eslint/js typescript-eslint globals
 ```
 
-Em seguida, instale os complementos exclusivos para cada módulo extra que for habilitar em seu `createConfig()`:
+Em seguida, instale os complementos exclusivos para cada módulo extra que for habilitar em seu `createKitsuneConfig()`:
 
 **Módulo `security` (Habilitado por padrão)**
 Necessário para a suíte de regras focadas em prevenir vulnerabilidades de segurança e injeções de código:
@@ -68,13 +68,13 @@ npm install --save-dev @vitest/eslint-plugin
 
 ### ESLint — Factory function (recomendado)
 
-A forma mais simples. O `createConfig` compõe os módulos selecionados:
+A forma mais simples. O `createKitsuneConfig` compõe os módulos selecionados:
 
 ```javascript
 // eslint.config.js
-import { createConfig } from '@polariens/kitsune-lint/eslint';
+import { createKitsuneConfig } from '@polariens/kitsune-lint/eslint';
 
-export default await createConfig({
+export default await createKitsuneConfig({
   vue: true,
   pinia: true,
   tests: true,
@@ -85,7 +85,7 @@ export default await createConfig({
 Por padrão, `base`, `typescript`, `security` e `cleanCode` já vêm habilitados. Passe `false` para desativar:
 
 ```javascript
-export default await createConfig({
+export default await createKitsuneConfig({
   security: false,
   vue: true,
 });
@@ -96,7 +96,7 @@ export default await createConfig({
 Cada módulo aceita um objeto de opções no lugar de `true`:
 
 ```javascript
-export default await createConfig({
+export default await createKitsuneConfig({
   base: { environment: 'node' },
   cleanCode: { maxDepth: 3, maxParams: 3, complexity: 10, maxLines: 300 },
   vue: { apiStyle: 'composition' },
@@ -134,11 +134,11 @@ export default [
 Use `extend` para adicionar configs de plugins externos (ex: `eslint-config-prettier`):
 
 ```javascript
-import { createConfig } from '@polariens/kitsune-lint/eslint';
+import { createKitsuneConfig } from '@polariens/kitsune-lint/eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginVue from 'eslint-plugin-vue';
 
-export default await createConfig({
+export default await createKitsuneConfig({
   vue: true,
   pinia: true,
   tests: true,
@@ -252,7 +252,7 @@ Relaxamentos para arquivos de teste — desliga regras rígidas de produção co
 @polariens/kitsune-lint/
 ├── package.json
 ├── eslint/
-│   ├── index.mjs            # Factory createConfig + re-exports
+│   ├── index.mjs            # Factory createKitsuneConfig + re-exports
 │   ├── utils.mjs             # Patterns de arquivos compartilhados
 │   └── configs/
 │       ├── base.mjs          # Globals do ambiente (browser/node)
