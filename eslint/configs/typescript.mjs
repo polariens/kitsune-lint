@@ -26,6 +26,7 @@ export function typescript(options = {}) {
         '**/*.config.{js,mjs,cjs,ts}', 
         '**/.prettierrc.*', 
         '**/_/*',
+        '**/dist/',
         '.gemini/',
         '.github',
         '.vscode',
