@@ -17,7 +17,7 @@ import { IGNORE_PATTERNS, resolveFiles } from '../utils.mjs';
  * @returns {import('eslint').Linter.Config[]}
  */
 export function typescript(options = {}) {
-  const { files, ignores, replaceIgnores, rules: extraRules = {} } = options;
+  const { files, ignores = [], replaceIgnores, rules: extraRules = {} } = options;
   const resolvedFiles = resolveFiles('all', files);
 
   return [
