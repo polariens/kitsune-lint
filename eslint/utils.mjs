@@ -18,6 +18,7 @@ export const IGNORE_PATTERNS = [
   '.copilot/',
   '.ia/',
   '.prompt/',
+  '.planning/'
 ];
 
 /**
