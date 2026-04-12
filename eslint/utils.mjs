@@ -6,7 +6,19 @@ export const FILE_PATTERNS = {
   configs: ['**/*.config.{js,mjs,cjs,ts}'],
 };
 
-export const IGNORE_PATTERNS = ['coverage', 'dist', 'node_modules'];
+export const IGNORE_PATTERNS = [
+  'coverage', 
+  'dist', 
+  'node_modules',
+  '.gemini/',
+  '.agents/',
+  '.agent/',
+  '.cursor/',
+  '.claude/',
+  '.copilot/',
+  '.ia/',
+  '.prompt/',
+];
 
 /**
  * Mescla file patterns customizados com os padrões.

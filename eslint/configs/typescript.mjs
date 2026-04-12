@@ -17,24 +17,17 @@ import { IGNORE_PATTERNS, resolveFiles } from '../utils.mjs';
  * @returns {import('eslint').Linter.Config[]}
  */
 export function typescript(options = {}) {
-  const { files, ignores, rules: extraRules = {} } = options;
+  const { files, ignores, replaceIgnores, rules: extraRules = {} } = options;
   const resolvedFiles = resolveFiles('all', files);
 
   return [
     {
-      ignores: ignores ?? [
+      ignores: replaceIgnores ?? [
         '**/*.config.{js,mjs,cjs,ts}', 
         '**/.prettierrc.*', 
         '**/_/*',
         '**/dist/',
         '**/.vitepress/',
-        '.gemini/',
-        '.agents/',
-        '.cursor/',
-        '.claude/',
-        '.copilot/',
-        '.ia/',
-        '.prompt/',
         '.rules/',
         '.idea',
         '.npm', 
@@ -43,7 +36,8 @@ export function typescript(options = {}) {
         '.quasar',
         '.coverage',
         '.husky',
-        ...IGNORE_PATTERNS
+        ...IGNORE_PATTERNS,
+        ...ignores,
       ],
     },
     {
