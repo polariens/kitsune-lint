@@ -27,9 +27,11 @@ export function cleanCode(options = {}) {
     rules: extraRules = {},
   } = options;
 
+  const resolvedFiles = resolveFiles('all', files);
+
   return [
     {
-      files: resolveFiles('all', files),
+      files: resolvedFiles,
       name: '@kitsune/clean-code/rules',
       rules: {
         // --- Single Responsibility (SRP) ---
@@ -72,6 +74,28 @@ export function cleanCode(options = {}) {
         'no-useless-return': 'error',
 
         ...extraRules,
+      },
+    },
+    {
+      /**
+       * Regra personalizada para composables e stores pinia que por padrão podem ter mais linhas
+       * devido aos exports e variáveis de estado ref/computed.
+       * Padrão de arquivos: iniciando com `use`
+       */
+      files: resolvedFiles.map((pattern) => {
+        const parts = pattern.split('/');
+        const lastPart = parts[parts.length - 1];
+        if (lastPart.includes('*')) {
+          parts[parts.length - 1] = lastPart.replace('*', 'use*');
+        }
+        return parts.join('/');
+      }),
+      name: '@kitsune/clean-code/use-rules',
+      rules: {
+        'max-lines-per-function': [
+          'warn',
+          { max: Math.max(200, maxLinesPerFunction), skipBlankLines: true, skipComments: true },
+        ],
       },
     },
   ];
