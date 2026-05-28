@@ -7,6 +7,8 @@ export { typescript } from './configs/typescript.mjs';
 export { vitest } from './configs/vitest.mjs';
 export { vue } from './configs/vue.mjs';
 
+import { mergeConfigRules } from './utils/merge.mjs';
+
 /**
  * @typedef {Object} CreateKitsuneConfigOptions
  * @property {import('./configs/base.mjs').BaseOptions | boolean} [base=true]
@@ -81,5 +83,5 @@ export async function createKitsuneConfig(options = {}) {
 
   configs.push(...extend);
 
-  return configs;
+  return mergeConfigRules(configs);
 }

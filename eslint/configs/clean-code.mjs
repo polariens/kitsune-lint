@@ -40,6 +40,13 @@ export function cleanCode(options = {}) {
         'max-lines-per-function': ['warn', { max: maxLinesPerFunction, skipBlankLines: true, skipComments: true }],
         'max-depth': ['error', maxDepth],
         'max-params': ['error', maxParams],
+        'no-restricted-syntax': [
+          'error',
+          {
+            selector: 'IfStatement > BlockStatement > IfStatement',
+            message: 'Evite ifs aninhados. Extraia a lógica para uma função ou utilize operadores lógicos para simplificar a condição.',
+          },
+        ],
 
         // --- Readability & Expressiveness ---
         'no-negated-condition': 'error',

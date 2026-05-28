@@ -18,6 +18,8 @@ export interface VueOptions {
   propNameCasing?: NameCasing;
   /** Nomeclatura para nomes de slots @default 'kebab-case' */
   slotNameCasing?: NameCasing;
+  /** Profundidade máxima de aninhamento no template @default 6 */
+  maxTemplateDepth?: number;
   /** Regras adicionais ou overrides */
   rules?: Partial<Linter.RulesRecord>;
 }
