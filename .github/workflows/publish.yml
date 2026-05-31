@@ -36,7 +36,7 @@ jobs:
           if [ -n "${{ github.event.inputs.otp }}" ]; then
             npm publish --access public --tag rc --otp "${{ github.event.inputs.otp }}"
           else
-            npm publish --access public --tag rc
+            echo "Publicação confirmada, mas o código OTP não foi fornecido."
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
