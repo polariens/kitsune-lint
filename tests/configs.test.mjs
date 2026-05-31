@@ -182,7 +182,7 @@ describe('Kitsune ESLint Config Merging', () => {
       expect(vueBlock).toBeDefined();
       expect(vueBlock.rules['vue/max-template-depth']).toEqual([
         'warn',
-        { maxDepth: 6 },
+        { maxDepth: 9 },
       ]);
     });
 
