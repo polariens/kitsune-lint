@@ -1,6 +1,6 @@
 {
   "name": "@polariens/kitsune-lint",
-  "version": "1.0.0-rc.12",
+  "version": "1.0.0-rc.13",
   "description": "Opinionated ESLint & Prettier configs for high-quality Vue, TypeScript & Vitest projects. Clean code, sharp rules.",
   "keywords": [
     "eslint",
