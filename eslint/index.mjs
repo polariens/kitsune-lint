@@ -83,5 +83,18 @@ export async function createKitsuneConfig(options = {}) {
 
   configs.push(...extend);
 
-  return mergeConfigRules(configs);
+  // Mover blocos que desabilitam 'no-restricted-syntax' para o fim da lista
+  // para garantir que eles se sobreponham corretamente a qualquer regra geral ativada por outros módulos.
+  const generalConfigs = [];
+  const overrideConfigs = [];
+  for (const config of configs) {
+    const isRestrictedSyntaxOff = config.rules && config.rules['no-restricted-syntax'] === 'off';
+    if (isRestrictedSyntaxOff) {
+      overrideConfigs.push(config);
+    } else {
+      generalConfigs.push(config);
+    }
+  }
+
+  return mergeConfigRules([...generalConfigs, ...overrideConfigs]);
 }

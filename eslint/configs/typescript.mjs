@@ -207,7 +207,7 @@ export function typescript(options = {}) {
     },
     {
       // Disable export/import default in router plugin and config files
-      files: ['src/router/*.ts', '**/*.d.{ts,js}', '**/*.config.{ts,js}', '.*/**/*.{ts,js}'],
+      files: ['src/router/index.ts', '**/*.d.{ts,js}', '**/*.config.{ts,js}'],
       rules: {
         'no-restricted-syntax': 'off',
       },

@@ -242,4 +242,37 @@ describe('Kitsune ESLint Config Merging', () => {
       expect(testsIdx).toBeLessThan(vitestIdx);
     });
   });
+
+  describe('TypeScript router configuration simulation', () => {
+    it('should allow default export in src/router/index.ts but restrict it in other files', async () => {
+      const config = await createKitsuneConfig({
+        typescript: true,
+      });
+
+      // Disable projectService in all config blocks to avoid "file not found in project" error for virtual files
+      for (const block of config) {
+        if (block.languageOptions && block.languageOptions.parserOptions) {
+          delete block.languageOptions.parserOptions.projectService;
+        }
+      }
+
+      const { ESLint } = await import('eslint');
+      const eslint = new ESLint({
+        overrideConfigFile: true,
+        overrideConfig: config,
+      });
+
+      const code = 'export default { path: "/" };\n';
+
+      // Linting src/router/index.ts should NOT produce any no-restricted-syntax error
+      const resultsForRouter = await eslint.lintText(code, { filePath: 'src/router/index.ts' });
+      const errorsForRouter = resultsForRouter[0].messages.filter(m => m.ruleId === 'no-restricted-syntax');
+      expect(errorsForRouter.length).toBe(0);
+
+      // Linting src/other/file.ts SHOULD produce a no-restricted-syntax error
+      const resultsForOther = await eslint.lintText(code, { filePath: 'src/other/file.ts' });
+      const errorsForOther = resultsForOther[0].messages.filter(m => m.ruleId === 'no-restricted-syntax');
+      expect(errorsForOther.length).toBeGreaterThan(0);
+    });
+  });
 });
