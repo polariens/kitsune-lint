@@ -199,4 +199,47 @@ describe('Kitsune ESLint Config Merging', () => {
       ]);
     });
   });
+
+  describe('Config modules loading order', () => {
+    it('should load configuration modules in the exact expected order: base -> typescript -> security -> cleanCode -> vue -> pinia -> tests -> vitest', async () => {
+      const config = await createKitsuneConfig({
+        base: true,
+        typescript: true,
+        security: true,
+        cleanCode: true,
+        vue: true,
+        pinia: true,
+        tests: true,
+        vitest: true,
+      });
+
+      const baseIdx = config.findIndex((block) => block.name === '@kitsune/base/globals');
+      const tsIdx = config.findIndex((block) => block.name === '@kitsune/typescript/rules');
+      const secIdx = config.findIndex((block) => block.name === '@kitsune/security/rules');
+      const cleanIdx = config.findIndex((block) => block.name === '@kitsune/clean-code/rules');
+      const vueIdx = config.findIndex((block) => block.name === '@kitsune/vue/rules');
+      const piniaIdx = config.findIndex((block) => block.name === '@kitsune/pinia/rules');
+      const testsIdx = config.findIndex((block) => block.name === '@kitsune/tests/relaxations');
+      const vitestIdx = config.findIndex((block) => block.name === '@kitsune/vitest/rules');
+
+      // Make sure all blocks are found
+      expect(baseIdx).toBeGreaterThan(-1);
+      expect(tsIdx).toBeGreaterThan(-1);
+      expect(secIdx).toBeGreaterThan(-1);
+      expect(cleanIdx).toBeGreaterThan(-1);
+      expect(vueIdx).toBeGreaterThan(-1);
+      expect(piniaIdx).toBeGreaterThan(-1);
+      expect(testsIdx).toBeGreaterThan(-1);
+      expect(vitestIdx).toBeGreaterThan(-1);
+
+      // Verify they load in the exact specified order
+      expect(baseIdx).toBeLessThan(tsIdx);
+      expect(tsIdx).toBeLessThan(secIdx);
+      expect(secIdx).toBeLessThan(cleanIdx);
+      expect(cleanIdx).toBeLessThan(vueIdx);
+      expect(vueIdx).toBeLessThan(piniaIdx);
+      expect(piniaIdx).toBeLessThan(testsIdx);
+      expect(testsIdx).toBeLessThan(vitestIdx);
+    });
+  });
 });
