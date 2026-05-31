@@ -8,10 +8,6 @@ on:
         required: true
         type: string
         default: 'NÃO'
-      otp:
-        description: 'Código 2FA (OTP) do seu autenticador do NPM (deixe vazio se não for necessário)'
-        required: false
-        type: string
 
 jobs:
   publish:
@@ -36,13 +32,7 @@ jobs:
             exit 1
           fi
 
-          # Validar OTP
-          if [ -z "${{ github.event.inputs.otp }}" ]; then
-            echo "::error::Código OTP (2FA) do NPM é obrigatório para a publicação, mas não foi fornecido."
-            exit 1
-          fi
-
           # Executar publicação
-          npm publish --access public --tag rc --otp "${{ github.event.inputs.otp }}"
+          npm publish --access public --tag rc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
