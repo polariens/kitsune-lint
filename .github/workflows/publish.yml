@@ -1,0 +1,42 @@
+name: Publish to NPM (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Digite "SIM" para confirmar a publicação do pacote'
+        required: true
+        type: string
+        default: 'NÃO'
+      otp:
+        description: 'Código 2FA (OTP) do seu autenticador do NPM (deixe vazio se não for necessário)'
+        required: false
+        type: string
+
+jobs:
+  publish:
+    name: Build & Publish Package
+    runs-on: ubuntu-latest
+    
+    # Executa apenas se o usuário explicitamente confirmou com "SIM"
+    if: ${{ github.event.inputs.confirm == 'SIM' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish to NPM
+        run: |
+          if [ -n "${{ github.event.inputs.otp }}" ]; then
+            npm publish --access public --tag rc --otp "${{ github.event.inputs.otp }}"
+          else
+            npm publish --access public --tag rc
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
