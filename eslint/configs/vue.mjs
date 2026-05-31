@@ -30,7 +30,7 @@ export function vue(options = {}) {
   } = options;
 
   return [
-    ...pluginVue.configs["flat/recommended"],
+    ...pluginVue.configs["flat/essential"],
     {
       files: resolveFiles("vue", files),
       name: "@kitsune/vue/rules",
