@@ -1,3 +1,4 @@
+import aliasImports from '../rules/alias-imports.mjs';
 import { resolveFiles } from '../utils.mjs';
 
 /**
@@ -40,7 +41,14 @@ export async function vitest(options = {}) {
     {
       files: resolveFiles('tests', files),
       name: '@kitsune/vitest/rules',
-      plugins: { vitest: vitestPlugin },
+      plugins: { 
+        vitest: vitestPlugin,
+        kitsune: {
+          rules: {
+            'alias-imports': aliasImports,
+          },
+        },
+      },
       rules: {
         ...vitestPlugin.configs.recommended.rules,
         'vitest/consistent-test-filename': 'error',
@@ -69,6 +77,8 @@ export async function vitest(options = {}) {
         'vitest/prefer-each': 'error',
         'vitest/no-mocks-import': 'off',
         'vitest/max-nested-describe': ['error', { max: maxNestedDescribe }],
+        'vitest/no-importing-vitest-globals': 'error',
+        'kitsune/alias-imports': 'error',
         ...extraRules,
       },
     },

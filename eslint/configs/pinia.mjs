@@ -3,6 +3,7 @@ import { resolveFiles } from '../utils.mjs';
 /**
  * @typedef {Object} PiniaOptions
  * @property {string[]} [files] - File patterns override (default: src/state/**\/*.ts)
+ * @property {string | string[]} [path] - Caminho(s) dos arquivos de store do Pinia
  * @property {Record<string, unknown>} [rules] - Regras adicionais ou overrides
  */
 
@@ -12,13 +13,16 @@ import { resolveFiles } from '../utils.mjs';
  * @returns {Promise<import('eslint').Linter.Config[]>}
  */
 export async function pinia(options = {}) {
-  const { files, rules: extraRules = {} } = options;
+  const { files, path, rules: extraRules = {} } = options;
 
   const pluginPinia = await import('eslint-plugin-pinia').then((m) => m.default ?? m);
 
+  const resolvedPath = Array.isArray(path) ? path : [path];
+  const customFiles = files ?? (path ? (resolvedPath) : undefined);
+
   return [
     {
-      files: resolveFiles('pinia', files),
+      files: resolveFiles('pinia', customFiles),
       name: '@kitsune/pinia/rules',
       plugins: { pinia: pluginPinia },
       rules: {

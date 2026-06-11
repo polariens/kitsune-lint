@@ -5,7 +5,7 @@ import { resolveFiles } from '../utils.mjs';
  * @property {string[]} [files] - File patterns override
  * @property {number} [maxDepth=4] - Profundidade máxima de aninhamento
  * @property {number} [maxParams=4] - Número máximo de parâmetros
- * @property {number} [complexity=14] - Complexidade ciclomática máxima
+ * @property {number} [complexity=10] - Complexidade ciclomática máxima
  * @property {number} [maxLines=400] - Linhas máximas por arquivo
  * @property {number} [maxLinesPerFunction=80] - Linhas máximas por função
  * @property {Record<string, unknown>} [rules] - Regras adicionais ou overrides
@@ -21,7 +21,7 @@ export function cleanCode(options = {}) {
     files,
     maxDepth = 4,
     maxParams = 4,
-    complexity: maxComplexity = 14,
+    complexity: maxComplexity = 10,
     maxLines = 400,
     maxLinesPerFunction = 80,
     rules: extraRules = {},

@@ -2,6 +2,7 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 import noNullInTypes from '../rules/no-null-in-types.mjs';
+import aliasImports from '../rules/alias-imports.mjs';
 import { IGNORE_PATTERNS, resolveFiles } from '../utils.mjs';
 
 /**
@@ -53,6 +54,7 @@ export function typescript(options = {}) {
         kitsune: {
           rules: {
             'no-null-in-types': noNullInTypes,
+            'alias-imports': aliasImports,
           },
         },
       },
@@ -157,17 +159,7 @@ export function typescript(options = {}) {
             varsIgnorePattern: '^_',
           },
         ],
-        'no-restricted-imports': [
-          'error',
-          {
-            patterns: [
-              {
-                regex: '^\\.\\.\\/.*',
-                message: 'Use o alias @/ ou #/ ao invés de imports relativos com ../',
-              },
-            ],
-          },
-        ],
+        'kitsune/alias-imports': 'error',
         'sort-imports': [
           'error',
           {

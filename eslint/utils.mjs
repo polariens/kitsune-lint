@@ -1,24 +1,24 @@
 export const FILE_PATTERNS = {
-  all: ['**/*.{vue,js,mjs,cjs,ts}'],
-  tests: ['tests/**/*.{js,mjs,cjs,ts}'],
-  vue: ['**/*.vue'],
-  pinia: ['src/state/**/*.{ts}'],
-  configs: ['**/*.config.{js,mjs,cjs,ts}'],
+  all: ["**/*.{vue,js,mjs,cjs,ts}"],
+  tests: ["tests/**/*.{js,mjs,cjs,ts}"],
+  vue: ["**/*.vue"],
+  pinia: ["src/{states,stores}/**/*.{ts}"],
+  configs: ["**/*.config.{js,mjs,cjs,ts}"],
 };
 
 export const IGNORE_PATTERNS = [
-  'coverage', 
-  'dist', 
-  'node_modules',
-  '.gemini/',
-  '.agents/',
-  '.agent/',
-  '.cursor/',
-  '.claude/',
-  '.copilot/',
-  '.ia/',
-  '.prompt/',
-  '.planning/'
+  "coverage",
+  "dist",
+  "node_modules",
+  ".gemini/",
+  ".agents/",
+  ".agent/",
+  ".cursor/",
+  ".claude/",
+  ".copilot/",
+  ".ia/",
+  ".prompt/",
+  ".planning/",
 ];
 
 /**

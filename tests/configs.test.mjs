@@ -200,6 +200,28 @@ describe('Kitsune ESLint Config Merging', () => {
     });
   });
 
+  describe('Pinia path configuration', () => {
+    it('should allow custom path configuration as string', async () => {
+      const config = await createKitsuneConfig({
+        pinia: { path: 'custom/store/path/**/*.ts' },
+      });
+
+      const piniaBlock = config.find((block) => block.name === '@kitsune/pinia/rules');
+      expect(piniaBlock).toBeDefined();
+      expect(piniaBlock.files).toEqual(['custom/store/path/**/*.ts']);
+    });
+
+    it('should allow custom path configuration as array of strings', async () => {
+      const config = await createKitsuneConfig({
+        pinia: { path: ['custom/store/path1/**/*.ts', 'custom/store/path2/**/*.ts'] },
+      });
+
+      const piniaBlock = config.find((block) => block.name === '@kitsune/pinia/rules');
+      expect(piniaBlock).toBeDefined();
+      expect(piniaBlock.files).toEqual(['custom/store/path1/**/*.ts', 'custom/store/path2/**/*.ts']);
+    });
+  });
+
   describe('Config modules loading order', () => {
     it('should load configuration modules in the exact expected order: base -> typescript -> security -> cleanCode -> vue -> pinia -> tests -> vitest', async () => {
       const config = await createKitsuneConfig({
@@ -273,6 +295,19 @@ describe('Kitsune ESLint Config Merging', () => {
       const resultsForOther = await eslint.lintText(code, { filePath: 'src/other/file.ts' });
       const errorsForOther = resultsForOther[0].messages.filter(m => m.ruleId === 'no-restricted-syntax');
       expect(errorsForOther.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Vitest configuration rules', () => {
+    it('should include vitest/no-importing-vitest-globals and kitsune/alias-imports', async () => {
+      const config = await createKitsuneConfig({
+        vitest: true,
+      });
+
+      const vitestBlock = config.find((block) => block.name === '@kitsune/vitest/rules');
+      expect(vitestBlock).toBeDefined();
+      expect(vitestBlock.rules['vitest/no-importing-vitest-globals']).toBe('error');
+      expect(vitestBlock.rules['kitsune/alias-imports']).toBe('error');
     });
   });
 });

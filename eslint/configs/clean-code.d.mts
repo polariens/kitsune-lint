@@ -7,7 +7,7 @@ export interface CleanCodeOptions {
   maxDepth?: number;
   /** Número máximo de parâmetros por função @default 4 */
   maxParams?: number;
-  /** Complexidade ciclomática máxima @default 14 */
+  /** Complexidade ciclomática máxima @default 10 */
   complexity?: number;
   /** Linhas máximas por arquivo @default 400 */
   maxLines?: number;
