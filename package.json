@@ -1,6 +1,6 @@
 {
   "name": "@polariens/kitsune-lint",
-  "version": "1.0.0-rc.16",
+  "version": "1.0.0-rc.17",
   "description": "Opinionated ESLint & Prettier configs for high-quality Vue, TypeScript & Vitest projects. Clean code, sharp rules.",
   "keywords": [
     "eslint",
@@ -69,6 +69,10 @@
     "./prettier": {
       "types": "./prettier/index.d.mts",
       "default": "./prettier/index.mjs"
+    },
+    "./stylelint": {
+      "types": "./stylelint/index.d.mts",
+      "default": "./stylelint/index.mjs"
     }
   },
   "main": "index.js",
@@ -81,6 +85,7 @@
   "files": [
     "eslint",
     "prettier",
+    "stylelint",
     "bin"
   ],
   "scripts": {
@@ -96,6 +101,9 @@
     "eslint-plugin-pinia": "^0.4.0",
     "eslint-plugin-security": "^4.0.0",
     "eslint-plugin-vue": "^10.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard-scss": "^13.0.0 || ^14.0.0",
     "typescript-eslint": "^8.0.0",
     "vue-eslint-parser": "^10.0.0"
   },
@@ -114,6 +122,15 @@
     },
     "eslint-plugin-pinia": {
       "optional": true
+    },
+    "stylelint": {
+      "optional": true
+    },
+    "stylelint-config-recommended-vue": {
+      "optional": true
+    },
+    "stylelint-config-standard-scss": {
+      "optional": true
     }
   },
   "devDependencies": {
@@ -123,6 +140,9 @@
     "eslint-plugin-pinia": "^0.4.2",
     "eslint-plugin-security": "^4.0.0",
     "eslint-plugin-vue": "^10.9.1",
+    "stylelint": "^16.11.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard-scss": "^14.0.0",
     "typescript-eslint": "^8.59.4",
     "vitest": "^4.1.7",
     "vue-eslint-parser": "^10.4.0"

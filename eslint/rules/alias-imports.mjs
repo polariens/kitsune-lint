@@ -1,5 +1,10 @@
 import path from 'node:path';
 
+const DEFAULT_ALIAS_RULES = [
+  { prefix: 'src/', alias: '@/' },
+  { prefix: 'tests/', alias: '#tests/' },
+];
+
 export default {
   meta: {
     type: 'problem',
@@ -12,12 +17,27 @@ export default {
     messages: {
       useAlias: 'Utilize o path alias "{{alias}}" em vez de "{{importPath}}".',
     },
-    schema: [],
+    schema: [
+      {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            prefix: { type: 'string' },
+            alias: { type: 'string' },
+          },
+          required: ['prefix', 'alias'],
+          additionalProperties: false,
+        },
+      },
+    ],
   },
 
   create(context) {
     const rootDir = context.cwd || process.cwd();
     const currentFile = context.filename || context.getFilename();
+    const userRules = context.options[0] || [];
+    const aliasRules = userRules.length > 0 ? userRules : DEFAULT_ALIAS_RULES;
 
     function checkImport(node) {
       if (!node.source || typeof node.source.value !== 'string') {
@@ -27,33 +47,37 @@ export default {
       const importPath = node.source.value;
       let targetAlias = null;
 
-      // 1. Check if the import targets the root package.json
-      if (importPath === 'package.json' || importPath === './package.json' || importPath.startsWith('../') || importPath.startsWith('src/')) {
+      // Helper to resolve paths to root relative normalized path
+      function getNormalizedRelative(pathStr) {
         const fileDir = path.dirname(currentFile);
-        const absoluteImported = path.resolve(fileDir, importPath);
+        const absoluteImported = path.resolve(fileDir, pathStr);
         const relativeToRoot = path.relative(rootDir, absoluteImported);
-        const normalizedRelative = relativeToRoot.split(path.sep).join('/');
+        return relativeToRoot.split(path.sep).join('/');
+      }
 
+      // 1. Check if the import targets the root package.json
+      const isPotentialPackageJson = importPath === 'package.json' ||
+        importPath === './package.json' ||
+        importPath.startsWith('../') ||
+        aliasRules.some(rule => importPath.startsWith(rule.prefix));
+
+      if (isPotentialPackageJson) {
+        const normalizedRelative = getNormalizedRelative(importPath);
         if (normalizedRelative === 'package.json' || importPath === 'package.json') {
           targetAlias = 'pkg';
         }
       }
 
-      // 2. If it's not package.json, check for other aliases if they start with 'src/' or '../'
+      // 2. Check path rules
       if (!targetAlias) {
-        if (importPath.startsWith('src/')) {
-          // e.g. "src/components/Button" -> "@/components/Button"
-          targetAlias = importPath.replace(/^src\//, '@/');
+        const matchingRule = aliasRules.find(rule => importPath.startsWith(rule.prefix));
+        if (matchingRule) {
+          targetAlias = importPath.replace(new RegExp(`^${matchingRule.prefix}`), matchingRule.alias);
         } else if (importPath.startsWith('../')) {
-          const fileDir = path.dirname(currentFile);
-          const absoluteImported = path.resolve(fileDir, importPath);
-          const relativeToRoot = path.relative(rootDir, absoluteImported);
-          const normalizedRelative = relativeToRoot.split(path.sep).join('/');
-
-          if (normalizedRelative.startsWith('src/')) {
-            targetAlias = normalizedRelative.replace(/^src\//, '@/');
-          } else if (normalizedRelative.startsWith('tests/')) {
-            targetAlias = normalizedRelative.replace(/^tests\//, '#tests/');
+          const normalizedRelative = getNormalizedRelative(importPath);
+          const relativeMatchingRule = aliasRules.find(rule => normalizedRelative.startsWith(rule.prefix));
+          if (relativeMatchingRule) {
+            targetAlias = normalizedRelative.replace(new RegExp(`^${relativeMatchingRule.prefix}`), relativeMatchingRule.alias);
           }
         }
       }

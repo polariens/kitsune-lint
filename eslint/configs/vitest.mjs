@@ -8,6 +8,7 @@ import { resolveFiles } from '../utils.mjs';
  * @property {string} [titleMessage] - Mensagem de erro para títulos inválidos
  * @property {'test' | 'it'} [fn='test'] - Função de teste preferida
  * @property {number} [maxNestedDescribe=3] - Máximo de describe aninhados
+ * @property {Array<{prefix: string, alias: string}>} [aliasImports] - Configurações de alias para imports
  * @property {Record<string, unknown>} [rules] - Regras adicionais ou overrides
  */
 
@@ -32,6 +33,7 @@ export async function vitest(options = {}) {
     titleMessage = TITLE_PATTERN_MESSAGE,
     fn = 'test',
     maxNestedDescribe = 3,
+    aliasImports,
     rules: extraRules = {},
   } = options;
 
@@ -74,7 +76,7 @@ export async function vitest(options = {}) {
         'vitest/no-mocks-import': 'off',
         'vitest/max-nested-describe': ['error', { max: maxNestedDescribe }],
         'vitest/no-importing-vitest-globals': 'error',
-        'kitsune/alias-imports': 'error',
+        'kitsune/alias-imports': aliasImports ? ['error', aliasImports] : 'error',
         ...extraRules,
       },
     },

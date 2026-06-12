@@ -310,6 +310,20 @@ describe('Kitsune ESLint Config Merging', () => {
       expect(vitestBlock.rules['kitsune/alias-imports']).toBe('error');
     });
 
+    it('should allow custom aliasImports configuration', async () => {
+      const customAliases = [{ prefix: 'lib/', alias: '~lib/' }];
+      const config = await createKitsuneConfig({
+        vitest: { aliasImports: customAliases },
+      });
+
+      const vitestBlock = config.find((block) => block.name === '@kitsune/vitest/rules');
+      expect(vitestBlock).toBeDefined();
+      expect(vitestBlock.rules['kitsune/alias-imports']).toEqual([
+        'error',
+        customAliases,
+      ]);
+    });
+
     it('should not throw plugin redefinition errors when typescript and vitest configs are used together', async () => {
       const config = await createKitsuneConfig({
         typescript: true,

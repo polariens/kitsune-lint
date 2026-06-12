@@ -30,8 +30,47 @@ ruleTester.run('alias-imports', aliasImportsRule, {
       code: "import './local-style';",
       filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
     },
+    {
+      code: "import bar from '~lib/core/helper';",
+      filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
+      options: [[{ prefix: 'lib/', alias: '~lib/' }]],
+    },
+    {
+      code: "import bar from '~lib/core/helper';\nimport baz from '@/components/Button';",
+      filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
+      options: [[
+        { prefix: 'lib/', alias: '~lib/' },
+        { prefix: 'src/', alias: '@/' },
+      ]],
+    },
   ],
   invalid: [
+    {
+      code: "import bar from 'lib/core/helper';\nimport baz from 'src/components/Button';",
+      filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
+      options: [[
+        { prefix: 'lib/', alias: '~lib/' },
+        { prefix: 'src/', alias: '@/' },
+      ]],
+      errors: [
+        { message: 'Utilize o path alias "~lib/core/helper" em vez de "lib/core/helper".' },
+        { message: 'Utilize o path alias "@/components/Button" em vez de "src/components/Button".' },
+      ],
+      output: "import bar from '~lib/core/helper';\nimport baz from '@/components/Button';",
+    },
+    {
+      code: "import bar from 'lib/core/helper';",
+      filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
+      options: [[{ prefix: 'lib/', alias: '~lib/' }]],
+      errors: [{ message: 'Utilize o path alias "~lib/core/helper" em vez de "lib/core/helper".' }],
+      output: "import bar from '~lib/core/helper';",
+    },
+    {
+      code: "import { something } from 'tests/utils';",
+      filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
+      errors: [{ message: 'Utilize o path alias "#tests/utils" em vez de "tests/utils".' }],
+      output: "import { something } from '#tests/utils';",
+    },
     {
       code: "import foo from 'src/components/Button';",
       filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',

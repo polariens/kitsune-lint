@@ -167,6 +167,27 @@ import { createPrettierConfig } from '@polariens/kitsune-lint/prettier';
 export default createPrettierConfig({ printWidth: 120 });
 ```
 
+### Stylelint
+
+Uso direto da config padrão (SCSS & Vue):
+
+```javascript
+// stylelint.config.mjs
+import stylelintConfig from '@polariens/kitsune-lint/stylelint';
+export default stylelintConfig;
+```
+
+Com overrides:
+
+```javascript
+import { createStylelintKitsuneConfig } from '@polariens/kitsune-lint/stylelint';
+export default createStylelintKitsuneConfig({
+  rules: {
+    'color-hex-length': 'short',
+  },
+});
+```
+
 ## Módulos
 
 | Módulo       | Default | Descrição                                                    |
@@ -246,6 +267,22 @@ Relaxamentos para arquivos de teste — desliga regras rígidas de produção co
 | `maxNestedDescribe`| `3`            | Máximo de describe aninhados     |
 | `rules`            | `{}`           | Regras extras                    |
 
+## Outras Configurações Disponíveis
+
+### Prettier
+
+Fornece regras de formatação integradas. Disponível em `@polariens/kitsune-lint/prettier`.
+
+### Stylelint
+
+Fornece padronização moderna para SCSS e componentes Vue. Disponível em `@polariens/kitsune-lint/stylelint`.
+
+Instale as dependências correspondentes para uso:
+
+```bash
+npm install --save-dev stylelint stylelint-config-standard-scss stylelint-config-recommended-vue postcss-html
+```
+
 ## Estrutura
 
 ```
@@ -263,6 +300,10 @@ Relaxamentos para arquivos de teste — desliga regras rígidas de produção co
 │       ├── pinia.mjs         # Stores Pinia
 │       ├── tests.mjs         # Relaxamentos para testes
 │       └── vitest.mjs        # Regras plugin Vitest
-└── prettier/
-    └── index.mjs             # Config Prettier exportável
+├── prettier/
+│   ├── index.d.mts           # Definições de tipo Prettier config
+│   └── index.mjs             # Config Prettier exportável
+└── stylelint/
+    ├── index.d.mts           # Definições de tipo Stylelint config
+    └── index.mjs             # Config Stylelint exportável (SCSS & Vue)
 ```
