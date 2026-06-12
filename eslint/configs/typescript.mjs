@@ -1,8 +1,7 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
-import noNullInTypes from '../rules/no-null-in-types.mjs';
-import aliasImports from '../rules/alias-imports.mjs';
+import { kitsunePlugin } from '../plugin.mjs';
 import { IGNORE_PATTERNS, resolveFiles } from '../utils.mjs';
 
 /**
@@ -51,12 +50,7 @@ export function typescript(options = {}) {
     })),
     {
       plugins: {
-        kitsune: {
-          rules: {
-            'no-null-in-types': noNullInTypes,
-            'alias-imports': aliasImports,
-          },
-        },
+        kitsune: kitsunePlugin,
       },
     },
     {

@@ -1,5 +1,9 @@
 import { RuleTester } from 'eslint';
-import aliasImportsRule from '../eslint/rules/alias-imports.mjs';
+import { describe, it } from 'vitest';
+import aliasImportsRule from '../../eslint/rules/alias-imports.mjs';
+
+globalThis.describe = describe;
+globalThis.it = it;
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -42,7 +46,7 @@ ruleTester.run('alias-imports', aliasImportsRule, {
     },
     {
       code: "import pkg from '../package.json';",
-      filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
+      filename: '/home/merieli/projects/kitsune-lint/src/Button.ts',
       errors: [{ message: 'Utilize o path alias "pkg" em vez de "../package.json".' }],
       output: "import pkg from 'pkg';",
     },
@@ -59,9 +63,9 @@ ruleTester.run('alias-imports', aliasImportsRule, {
       output: "import pkg from 'pkg';",
     },
     {
-      code: "export * from '../tests/utils';",
+      code: "export * from '../../tests/utils';",
       filename: '/home/merieli/projects/kitsune-lint/src/components/Button.ts',
-      errors: [{ message: 'Utilize o path alias "#tests/utils" em vez de "../tests/utils".' }],
+      errors: [{ message: 'Utilize o path alias "#tests/utils" em vez de "../../tests/utils".' }],
       output: "export * from '#tests/utils';",
     },
   ],

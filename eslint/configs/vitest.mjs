@@ -1,4 +1,4 @@
-import aliasImports from '../rules/alias-imports.mjs';
+import { kitsunePlugin } from '../plugin.mjs';
 import { resolveFiles } from '../utils.mjs';
 
 /**
@@ -43,11 +43,7 @@ export async function vitest(options = {}) {
       name: '@kitsune/vitest/rules',
       plugins: { 
         vitest: vitestPlugin,
-        kitsune: {
-          rules: {
-            'alias-imports': aliasImports,
-          },
-        },
+        kitsune: kitsunePlugin,
       },
       rules: {
         ...vitestPlugin.configs.recommended.rules,

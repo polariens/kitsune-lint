@@ -309,5 +309,30 @@ describe('Kitsune ESLint Config Merging', () => {
       expect(vitestBlock.rules['vitest/no-importing-vitest-globals']).toBe('error');
       expect(vitestBlock.rules['kitsune/alias-imports']).toBe('error');
     });
+
+    it('should not throw plugin redefinition errors when typescript and vitest configs are used together', async () => {
+      const config = await createKitsuneConfig({
+        typescript: true,
+        vitest: true,
+      });
+
+      // Remove projectService to avoid looking for tsconfig in tests
+      for (const block of config) {
+        if (block.languageOptions && block.languageOptions.parserOptions) {
+          delete block.languageOptions.parserOptions.projectService;
+        }
+      }
+
+      const { ESLint } = await import('eslint');
+      const eslint = new ESLint({
+        overrideConfigFile: true,
+        overrideConfig: config,
+      });
+
+      // This should compile and lint without ConfigError/Redefinition errors
+      const results = await eslint.lintText('test("dummy", () => {});', { filePath: 'tests/dummy.test.ts' });
+      expect(results).toBeDefined();
+    });
   });
 });
+

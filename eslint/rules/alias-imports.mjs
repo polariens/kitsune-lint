@@ -34,7 +34,7 @@ export default {
         const relativeToRoot = path.relative(rootDir, absoluteImported);
         const normalizedRelative = relativeToRoot.split(path.sep).join('/');
 
-        if (normalizedRelative === 'package.json') {
+        if (normalizedRelative === 'package.json' || importPath === 'package.json') {
           targetAlias = 'pkg';
         }
       }
