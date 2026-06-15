@@ -16,6 +16,7 @@ export interface CreateStylelintKitsuneOptions {
     extends?: string | string[];
     rules?: Record<string, any>;
   }>;
+  classPattern?: 'BEM' | null;
 }
 
 export declare const stylelintKitsuneConfig: StylelintKitsuneConfig;

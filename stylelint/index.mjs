@@ -1,3 +1,11 @@
+const BEM_PATTERN = [
+  '^[a-z]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$',
+  {
+    resolveNestedSelectors: true,
+    message: 'Expected class selector to match BEM pattern (e.g. .block__element--modifier)',
+  },
+];
+
 /**
  * @typedef {Object} StylelintKitsuneConfig
  * @property {string | string[]} [extends] - Configurações que serão estendidas
@@ -13,7 +21,7 @@ const stylelintKitsuneConfig = {
   ],
   rules: {
     'no-descending-specificity': null,
-    'selector-class-pattern': null,
+    'selector-class-pattern': BEM_PATTERN,
     'scss/double-slash-comment-empty-line-before': null,
     'scss/percent-placeholder-pattern': null,
     'scss/dollar-variable-pattern': null,
@@ -52,15 +60,8 @@ const stylelintKitsuneConfig = {
  * @property {string[]} [extends] - Configs adicionais a estender
  * @property {Record<string, any>} [rules] - Regras adicionais a adicionar/sobrescrever
  * @property {Array<Record<string, any>>} [overrides] - Overrides de arquivos adicionais
+ * @property {'BEM' | null} [classPattern] - Padrão de nomenclatura das classes (ex: 'BEM')
  */
-
-const BEM_PATTERN = [
-  '^[a-z]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$',
-  {
-    resolveNestedSelectors: true,
-    message: 'Expected class selector to match BEM pattern (e.g. .block__element--modifier)',
-  },
-];
 
 /**
  * Factory para criar configurações do Stylelint com overrides.
@@ -69,15 +70,17 @@ const BEM_PATTERN = [
  * @returns {StylelintKitsuneConfig}
  */
 function createStylelintKitsuneConfig(options = {}) {
-  const { extends: extraExtends = [], rules = {}, overrides = [] } = options;
+  const { extends: extraExtends = [], rules = {}, overrides = [], classPattern = 'BEM' } = options;
 
   const resolvedRules = {
     ...stylelintKitsuneConfig.rules,
     ...rules,
   };
 
-  if (resolvedRules['selector-class-pattern'] === 'BEM') {
+  if (classPattern === 'BEM') {
     resolvedRules['selector-class-pattern'] = BEM_PATTERN;
+  } else if (classPattern === null) {
+    resolvedRules['selector-class-pattern'] = null;
   }
 
   return {

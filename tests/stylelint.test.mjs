@@ -6,7 +6,8 @@ describe('Stylelint Kitsune Config', () => {
     expect(stylelintConfig.extends).toContain('stylelint-config-standard-scss');
     expect(stylelintConfig.extends).toContain('stylelint-config-recommended-vue/scss');
     expect(stylelintConfig.rules['no-descending-specificity']).toBeNull();
-    expect(stylelintConfig.rules['selector-class-pattern']).toBeNull();
+    expect(stylelintConfig.rules['selector-class-pattern']).toBeInstanceOf(Array);
+    expect(stylelintConfig.rules['selector-class-pattern'][0]).toContain('^[a-z]+');
     expect(stylelintConfig.rules['declaration-no-important']).toBe(true);
     expect(stylelintConfig.rules['selector-disallowed-list']).toContain('div');
     expect(stylelintConfig.rules['selector-disallowed-list']).not.toContain('body');
@@ -27,7 +28,7 @@ describe('Stylelint Kitsune Config', () => {
     
     expect(customConfig.rules['color-hex-length']).toBe('short');
     expect(customConfig.rules['no-descending-specificity']).toBe('error');
-    expect(customConfig.rules['selector-class-pattern']).toBeNull(); // remains null
+    expect(customConfig.rules['selector-class-pattern']).toBeInstanceOf(Array); // remains BEM by default
   });
 
   it('should merge overrides correctly', () => {
@@ -47,11 +48,11 @@ describe('Stylelint Kitsune Config', () => {
     expect(customConfig.overrides[0].rules['vue/no-unused-vars']).toBe('error');
   });
 
-  it('should support selector-class-pattern BEM option', () => {
+
+
+  it('should support classPattern option with BEM', () => {
     const customConfig = createStylelintKitsuneConfig({
-      rules: {
-        'selector-class-pattern': 'BEM',
-      },
+      classPattern: 'BEM',
     });
 
     expect(customConfig.rules['selector-class-pattern']).toBeInstanceOf(Array);
@@ -59,10 +60,11 @@ describe('Stylelint Kitsune Config', () => {
     expect(customConfig.rules['selector-class-pattern'][1].resolveNestedSelectors).toBe(true);
   });
 
-  it('should support selector-class-pattern null option', () => {
+  it('should support classPattern option with null', () => {
     const customConfig = createStylelintKitsuneConfig({
+      classPattern: null,
       rules: {
-        'selector-class-pattern': null,
+        'selector-class-pattern': 'some-other-pattern', // classPattern should override
       },
     });
 
