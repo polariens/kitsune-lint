@@ -21,6 +21,29 @@ const stylelintKitsuneConfig = {
     'property-no-vendor-prefix': null,
     'value-no-vendor-prefix': null,
     'custom-property-pattern': null,
+    'declaration-no-important': true,
+    'selector-disallowed-list': [
+      'div',
+      'span',
+      'p',
+      'a',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'ul',
+      'ol',
+      'li',
+      'section',
+      'article',
+      'header',
+      'footer',
+      'aside',
+      'nav',
+      'main',
+    ],
   },
 };
 
@@ -31,6 +54,14 @@ const stylelintKitsuneConfig = {
  * @property {Array<Record<string, any>>} [overrides] - Overrides de arquivos adicionais
  */
 
+const BEM_PATTERN = [
+  '^[a-z]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$',
+  {
+    resolveNestedSelectors: true,
+    message: 'Expected class selector to match BEM pattern (e.g. .block__element--modifier)',
+  },
+];
+
 /**
  * Factory para criar configurações do Stylelint com overrides.
  *
@@ -40,16 +71,22 @@ const stylelintKitsuneConfig = {
 function createStylelintKitsuneConfig(options = {}) {
   const { extends: extraExtends = [], rules = {}, overrides = [] } = options;
 
+  const resolvedRules = {
+    ...stylelintKitsuneConfig.rules,
+    ...rules,
+  };
+
+  if (resolvedRules['selector-class-pattern'] === 'BEM') {
+    resolvedRules['selector-class-pattern'] = BEM_PATTERN;
+  }
+
   return {
     ...stylelintKitsuneConfig,
     extends: [
       ...stylelintKitsuneConfig.extends,
       ...extraExtends,
     ],
-    rules: {
-      ...stylelintKitsuneConfig.rules,
-      ...rules,
-    },
+    rules: resolvedRules,
     overrides: [
       ...(stylelintKitsuneConfig.overrides || []),
       ...overrides,

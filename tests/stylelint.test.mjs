@@ -7,6 +7,9 @@ describe('Stylelint Kitsune Config', () => {
     expect(stylelintConfig.extends).toContain('stylelint-config-recommended-vue/scss');
     expect(stylelintConfig.rules['no-descending-specificity']).toBeNull();
     expect(stylelintConfig.rules['selector-class-pattern']).toBeNull();
+    expect(stylelintConfig.rules['declaration-no-important']).toBe(true);
+    expect(stylelintConfig.rules['selector-disallowed-list']).toContain('div');
+    expect(stylelintConfig.rules['selector-disallowed-list']).not.toContain('body');
   });
 
   it('should support createStylelintKitsuneConfig with extra extends and rules', () => {
@@ -42,5 +45,27 @@ describe('Stylelint Kitsune Config', () => {
     expect(customConfig.overrides).toHaveLength(1);
     expect(customConfig.overrides[0].files).toContain('*.vue');
     expect(customConfig.overrides[0].rules['vue/no-unused-vars']).toBe('error');
+  });
+
+  it('should support selector-class-pattern BEM option', () => {
+    const customConfig = createStylelintKitsuneConfig({
+      rules: {
+        'selector-class-pattern': 'BEM',
+      },
+    });
+
+    expect(customConfig.rules['selector-class-pattern']).toBeInstanceOf(Array);
+    expect(customConfig.rules['selector-class-pattern'][0]).toContain('^[a-z]+');
+    expect(customConfig.rules['selector-class-pattern'][1].resolveNestedSelectors).toBe(true);
+  });
+
+  it('should support selector-class-pattern null option', () => {
+    const customConfig = createStylelintKitsuneConfig({
+      rules: {
+        'selector-class-pattern': null,
+      },
+    });
+
+    expect(customConfig.rules['selector-class-pattern']).toBeNull();
   });
 });

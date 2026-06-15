@@ -79,6 +79,11 @@ export function typescript(options = {}) {
           'error',
           { selector: 'default', format: ['camelCase'] },
           { selector: 'variable', format: ['camelCase', 'UPPER_CASE'] },
+          {
+            selector: 'variable',
+            modifiers: ['destructured'],
+            format: null,
+          },
           { selector: 'function', format: ['camelCase'] },
           { selector: 'class', format: ['PascalCase'] },
           {
@@ -94,7 +99,7 @@ export function typescript(options = {}) {
           {
             // camelCase for properties of interfaces/types
             selector: 'typeProperty',
-            format: ['camelCase'],
+            format: ['camelCase', 'snake_case'],
             leadingUnderscore: 'allow',
             trailingUnderscore: 'allow',
           },
