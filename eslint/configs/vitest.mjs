@@ -76,6 +76,7 @@ export async function vitest(options = {}) {
         'vitest/no-mocks-import': 'off',
         'vitest/max-nested-describe': ['error', { max: maxNestedDescribe }],
         'vitest/no-importing-vitest-globals': 'error',
+        '@typescript-eslint/unbound-method': 'off',  
         'kitsune/alias-imports': aliasImports ? ['error', aliasImports] : 'error',
         ...extraRules,
       },
