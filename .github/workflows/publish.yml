@@ -4,12 +4,15 @@ on:
   workflow_call:
     secrets:
       NPM_TOKEN:
-        required: true
+        required: false
 
 jobs:
   publish:
     name: Build & Publish Package
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -48,6 +51,6 @@ jobs:
 
           # 4. Publicar
           echo "Tag $TAG confirmada e versão pendente no NPM. Iniciando publicação com --tag $DIST_TAG..."
-          npm publish --access public --tag "$DIST_TAG"
+          npm publish --access public --tag "$DIST_TAG" --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
