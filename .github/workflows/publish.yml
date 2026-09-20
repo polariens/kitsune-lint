@@ -1,0 +1,53 @@
+name: Publish to NPM
+
+on:
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
+
+jobs:
+  publish:
+    name: Build & Publish Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Validate Tag and Publish
+        run: |
+          PACKAGE_NAME=$(jq -r '.name' package.json)
+          VERSION=$(jq -r '.version' package.json)
+          TAG="v$VERSION"
+          
+          # 1. Verificar se a tag Git existe no repositório remoto
+          git fetch --tags
+          if ! git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "::warning::Tag $TAG não encontrada no repositório remoto. A publicação exige que a tag correspondente à versão do package.json já tenha sido criada."
+            exit 1
+          fi
+          
+          # 2. Verificar se a versão já está no NPM
+          if npm view "$PACKAGE_NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "::warning::Versão $VERSION de $PACKAGE_NAME já está publicada no NPM. Pulando publicação."
+            exit 0
+          fi
+          
+          # 3. Determinar dist-tag (prerelease vs latest)
+          if echo "$VERSION" | grep -q '-'; then
+            DIST_TAG="rc"
+          else
+            DIST_TAG="latest"
+          fi
+
+          # 4. Publicar
+          echo "Tag $TAG confirmada e versão pendente no NPM. Iniciando publicação com --tag $DIST_TAG..."
+          npm publish --access public --tag "$DIST_TAG"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

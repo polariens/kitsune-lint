@@ -1,0 +1,151 @@
+{
+  "name": "@polariens/kitsune-lint",
+  "version": "1.0.0-rc.20",
+  "description": "Opinionated ESLint & Prettier configs for high-quality Vue, TypeScript & Vitest projects. Clean code, sharp rules.",
+  "keywords": [
+    "eslint",
+    "prettier",
+    "lint",
+    "config",
+    "vue",
+    "typescript",
+    "vitest",
+    "clean-code",
+    "pinia",
+    "kitsune"
+  ],
+  "homepage": "https://github.com/Merieli/kitsune-lint#readme",
+  "bugs": {
+    "url": "https://github.com/Merieli/kitsune-lint/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Merieli/kitsune-lint.git"
+  },
+  "license": "MIT",
+  "author": "Polariens",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./eslint/index.d.mts",
+      "default": "./eslint/index.mjs"
+    },
+    "./eslint": {
+      "types": "./eslint/index.d.mts",
+      "default": "./eslint/index.mjs"
+    },
+    "./eslint/base": {
+      "types": "./eslint/configs/base.d.mts",
+      "default": "./eslint/configs/base.mjs"
+    },
+    "./eslint/typescript": {
+      "types": "./eslint/configs/typescript.d.mts",
+      "default": "./eslint/configs/typescript.mjs"
+    },
+    "./eslint/security": {
+      "types": "./eslint/configs/security.d.mts",
+      "default": "./eslint/configs/security.mjs"
+    },
+    "./eslint/clean-code": {
+      "types": "./eslint/configs/clean-code.d.mts",
+      "default": "./eslint/configs/clean-code.mjs"
+    },
+    "./eslint/vue": {
+      "types": "./eslint/configs/vue.d.mts",
+      "default": "./eslint/configs/vue.mjs"
+    },
+    "./eslint/pinia": {
+      "types": "./eslint/configs/pinia.d.mts",
+      "default": "./eslint/configs/pinia.mjs"
+    },
+    "./eslint/tests": {
+      "types": "./eslint/configs/tests.d.mts",
+      "default": "./eslint/configs/tests.mjs"
+    },
+    "./eslint/vitest": {
+      "types": "./eslint/configs/vitest.d.mts",
+      "default": "./eslint/configs/vitest.mjs"
+    },
+    "./prettier": {
+      "types": "./prettier/index.d.mts",
+      "default": "./prettier/index.mjs"
+    },
+    "./stylelint": {
+      "types": "./stylelint/index.d.mts",
+      "default": "./stylelint/index.mjs"
+    }
+  },
+  "main": "./eslint/index.mjs",
+  "types": "./eslint/index.d.mts",
+  "bin": {
+    "kitsune-prettierignore": "bin/copy-prettierignore.mjs"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "files": [
+    "eslint",
+    "prettier",
+    "stylelint",
+    "bin"
+  ],
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "globals": "^17.4.0"
+  },
+  "peerDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@vitest/eslint-plugin": "^1.0.0",
+    "eslint": ">=9.0.0",
+    "eslint-plugin-pinia": "^0.4.0",
+    "eslint-plugin-security": "^4.0.0",
+    "eslint-plugin-vue": "^10.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard-scss": "^13.0.0 || ^14.0.0",
+    "typescript-eslint": "^8.0.0",
+    "vue-eslint-parser": "^10.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vitest/eslint-plugin": {
+      "optional": true
+    },
+    "eslint-plugin-security": {
+      "optional": true
+    },
+    "eslint-plugin-vue": {
+      "optional": true
+    },
+    "vue-eslint-parser": {
+      "optional": true
+    },
+    "eslint-plugin-pinia": {
+      "optional": true
+    },
+    "stylelint": {
+      "optional": true
+    },
+    "stylelint-config-recommended-vue": {
+      "optional": true
+    },
+    "stylelint-config-standard-scss": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitest/eslint-plugin": "^1.6.18",
+    "eslint": "^10.4.0",
+    "eslint-plugin-pinia": "^0.4.2",
+    "eslint-plugin-security": "^4.0.0",
+    "eslint-plugin-vue": "^10.9.1",
+    "stylelint": "^16.11.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "typescript-eslint": "^8.59.4",
+    "vitest": "^4.1.7",
+    "vue-eslint-parser": "^10.4.0"
+  }
+}
