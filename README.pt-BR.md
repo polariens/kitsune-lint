@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="180" />
+</p>
+
 # kitsune-lint 🦊
 
 > **Português** | [English](README.md)
