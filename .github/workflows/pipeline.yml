@@ -11,6 +11,10 @@ on:
       - dev
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   test:
     uses: ./.github/workflows/test.yml
