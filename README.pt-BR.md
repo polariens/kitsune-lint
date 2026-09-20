@@ -2,7 +2,7 @@
   <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="180" />
 </p>
 
-# kitsune-lint 🦊
+# Kitsune Lint
 
 > **Português** | [English](README.md)
 
@@ -18,7 +18,7 @@ Mantido oficialmente pela **[Polariens](https://github.com/polariens)**, uma ins
 
 ## Sumário
 
-- [kitsune-lint 🦊](#kitsune-lint-)
+- [Kitsune Lint](#kitsune-lint)
   - [Sumário](#sumário)
   - [O que é](#o-que-é)
   - [Instalação](#instalação)

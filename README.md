@@ -2,7 +2,7 @@
   <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="180" />
 </p>
 
-# kitsune-lint 🦊
+# Kitsune Lint
 
 > **English** | [Português](README.pt-BR.md)
 
@@ -18,7 +18,7 @@ Officially maintained by **[Polariens](https://github.com/polariens)**, a non-pr
 
 ## Table of Contents
 
-- [kitsune-lint 🦊](#kitsune-lint-)
+- [Kitsune Lint](#kitsune-lint)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Installation](#installation)
