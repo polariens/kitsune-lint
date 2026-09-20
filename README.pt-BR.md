@@ -1,18 +1,16 @@
 <p align="center">
-  <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="180" />
+  <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="80" />
 </p>
 
-# Kitsune Lint
+<h1 align="center">Kitsune Lint</h1>
 
-> **Português** | [English](README.md)
+<p align="center">
+  <strong>Português</strong> | <a href="README.md">English</a>
+</p>
 
-Configurações opinativas de **ESLint**, **Prettier** e **Stylelint** para projetos de alta qualidade em **Vue 3**, **TypeScript** e **Vitest**. Código limpo com regras afiadas.
+Diretrizes consolidadas de **ESLint**, **Prettier** e **Stylelint** para **Vue 3**, **TypeScript** e **Vitest** — entregando guardrails prontos de segurança e código limpo para projetos modernos e assistidos por IA.
 
-Ajuda desenvolvedores a iniciar projetos JavaScript/TypeScript sem a complexidade de configurar regra por regra, entregando padrões rigorosos de linting, segurança e qualidade já travados para garantir código limpo e seguro — especialmente em bases aceleradas por Inteligência Artificial.
-
-Mantido oficialmente pela **[Polariens](https://github.com/polariens)**, uma instituição sem fins lucrativos focada em tecnologia aberta e impacto comunitário.
-
-> **Kitsune** (狐) é a raposa mística do folclore japonês — astuta, adaptável e capaz de se transformar conforme o contexto. Assim como a kitsune, este pacote se molda ao seu projeto: você escolhe os módulos e as opções, e ele compõe as regras certas para cada cenário. Código limpo com a precisão de uma raposa.
+> **Kitsune (狐)** representa adaptabilidade e precisão: regras modulares que se transformam no setup ideal para o seu ecossistema.
 
 ---
 
@@ -320,16 +318,16 @@ npx kitsune-prettierignore --force
 
 ### Visão Geral
 
-| Módulo | Padrão | Descrição |
-| :--- | :---: | :--- |
-| `base` | ✅ Ativo | Globais de ambiente (`browser`, `node`, etc.) |
-| `typescript` | ✅ Ativo | Boas práticas TS, naming conventions, regras de imports |
-| `security` | ✅ Ativo | Prevenção contra injeções, eval e XSS (`eslint-plugin-security`) |
-| `cleanCode` | ✅ Ativo | Limites de complexidade, tamanho de função e aninhamento |
-| `vue` | ❌ Inativo | Vue 3 SFCs, template casing, ordem de blocos, tipagem |
-| `pinia` | ❌ Inativo | Padrões e boas práticas para stores do Pinia |
-| `tests` | ❌ Inativo | Relaxamento de regras rígidas de produção em pastas de teste |
-| `vitest` | ❌ Inativo | Validação semântica e boas práticas para suites Vitest |
+| Módulo       |  Padrão   | Descrição                                                        |
+| :----------- | :-------: | :--------------------------------------------------------------- |
+| `base`       |  ✅ Ativo  | Globais de ambiente (`browser`, `node`, etc.)                    |
+| `typescript` |  ✅ Ativo  | Boas práticas TS, naming conventions, regras de imports          |
+| `security`   |  ✅ Ativo  | Prevenção contra injeções, eval e XSS (`eslint-plugin-security`) |
+| `cleanCode`  |  ✅ Ativo  | Limites de complexidade, tamanho de função e aninhamento         |
+| `vue`        | ❌ Inativo | Vue 3 SFCs, template casing, ordem de blocos, tipagem            |
+| `pinia`      | ❌ Inativo | Padrões e boas práticas para stores do Pinia                     |
+| `tests`      | ❌ Inativo | Relaxamento de regras rígidas de produção em pastas de teste     |
+| `vitest`     | ❌ Inativo | Validação semântica e boas práticas para suites Vitest           |
 
 ---
 
@@ -337,78 +335,78 @@ npx kitsune-prettierignore --force
 
 #### `base`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `undefined` | Sobrescreve os padrões de arquivos |
-| `environment` | `string` | `'browser'` | Ambientes: `'browser'`, `'node'`, `'shared-node-browser'`, `'worker'`, `'serviceworker'` |
+| Opção         | Tipo       | Padrão      | Descrição                                                                                |
+| :------------ | :--------- | :---------- | :--------------------------------------------------------------------------------------- |
+| `files`       | `string[]` | `undefined` | Sobrescreve os padrões de arquivos                                                       |
+| `environment` | `string`   | `'browser'` | Ambientes: `'browser'`, `'node'`, `'shared-node-browser'`, `'worker'`, `'serviceworker'` |
 
 #### `typescript`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `undefined` | Sobrescreve os padrões de arquivos |
-| `ignores` | `string[]` | `['dist/**', ...]` | Padrões adicionais a ignorar |
-| `replaceIgnores` | `string[]` | `undefined` | Substitui integralmente a lista de ignores |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção            | Tipo       | Padrão             | Descrição                                  |
+| :--------------- | :--------- | :----------------- | :----------------------------------------- |
+| `files`          | `string[]` | `undefined`        | Sobrescreve os padrões de arquivos         |
+| `ignores`        | `string[]` | `['dist/**', ...]` | Padrões adicionais a ignorar               |
+| `replaceIgnores` | `string[]` | `undefined`        | Substitui integralmente a lista de ignores |
+| `rules`          | `object`   | `{}`               | Regras adicionais ou overrides             |
 
 #### `security`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `undefined` | Sobrescreve os padrões de arquivos |
-| `pluginEnabled` | `boolean` | `true` | Habilita regras de `eslint-plugin-security` |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção           | Tipo       | Padrão      | Descrição                                   |
+| :-------------- | :--------- | :---------- | :------------------------------------------ |
+| `files`         | `string[]` | `undefined` | Sobrescreve os padrões de arquivos          |
+| `pluginEnabled` | `boolean`  | `true`      | Habilita regras de `eslint-plugin-security` |
+| `rules`         | `object`   | `{}`        | Regras adicionais ou overrides              |
 
 #### `cleanCode`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `undefined` | Sobrescreve os padrões de arquivos |
-| `maxDepth` | `number` | `4` | Profundidade máxima de aninhamento de blocos |
-| `maxParams` | `number` | `4` | Quantidade máxima de parâmetros por função |
-| `complexity` | `number` | `10` | Complexidade ciclomática máxima por função |
-| `maxLines` | `number` | `400` | Máximo de linhas por arquivo (ignora comentários/espaços) |
-| `maxLinesPerFunction` | `number` | `80` | Máximo de linhas por corpo de função |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção                 | Tipo       | Padrão      | Descrição                                                 |
+| :-------------------- | :--------- | :---------- | :-------------------------------------------------------- |
+| `files`               | `string[]` | `undefined` | Sobrescreve os padrões de arquivos                        |
+| `maxDepth`            | `number`   | `4`         | Profundidade máxima de aninhamento de blocos              |
+| `maxParams`           | `number`   | `4`         | Quantidade máxima de parâmetros por função                |
+| `complexity`          | `number`   | `10`        | Complexidade ciclomática máxima por função                |
+| `maxLines`            | `number`   | `400`       | Máximo de linhas por arquivo (ignora comentários/espaços) |
+| `maxLinesPerFunction` | `number`   | `80`        | Máximo de linhas por corpo de função                      |
+| `rules`               | `object`   | `{}`        | Regras adicionais ou overrides                            |
 
 #### `vue`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `undefined` | Sobrescreve os padrões de arquivos |
-| `apiStyle` | `string` | `'script-setup'` | Estilo de API: `'script-setup'`, `'composition'`, `'options'` |
-| `componentsNameCasing` | `string` | `'PascalCase'` | Nomenclatura de tags de componentes no template |
-| `componentsNameCasingIgnores` | `string[]` | `[]` | Componentes ignorados na verificação de nomenclatura |
-| `propNameCasing` | `string` | `'camelCase'` | Nomenclatura das props |
-| `slotNameCasing` | `string` | `'kebab-case'` | Nomenclatura de slots |
-| `maxTemplateDepth` | `number` | `6` | Profundidade máxima de aninhamento no template |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção                         | Tipo       | Padrão           | Descrição                                                     |
+| :---------------------------- | :--------- | :--------------- | :------------------------------------------------------------ |
+| `files`                       | `string[]` | `undefined`      | Sobrescreve os padrões de arquivos                            |
+| `apiStyle`                    | `string`   | `'script-setup'` | Estilo de API: `'script-setup'`, `'composition'`, `'options'` |
+| `componentsNameCasing`        | `string`   | `'PascalCase'`   | Nomenclatura de tags de componentes no template               |
+| `componentsNameCasingIgnores` | `string[]` | `[]`             | Componentes ignorados na verificação de nomenclatura          |
+| `propNameCasing`              | `string`   | `'camelCase'`    | Nomenclatura das props                                        |
+| `slotNameCasing`              | `string`   | `'kebab-case'`   | Nomenclatura de slots                                         |
+| `maxTemplateDepth`            | `number`   | `6`              | Profundidade máxima de aninhamento no template                |
+| `rules`                       | `object`   | `{}`             | Regras adicionais ou overrides                                |
 
 #### `pinia`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `['src/state/**/*.ts']` | Arquivos de stores analisados |
-| `path` | `string \| string[]` | `undefined` | Caminhos adicionais de stores |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção   | Tipo                 | Padrão                  | Descrição                      |
+| :------ | :------------------- | :---------------------- | :----------------------------- |
+| `files` | `string[]`           | `['src/state/**/*.ts']` | Arquivos de stores analisados  |
+| `path`  | `string \| string[]` | `undefined`             | Caminhos adicionais de stores  |
+| `rules` | `object`             | `{}`                    | Regras adicionais ou overrides |
 
 #### `tests`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `['tests/**/*.{js,mjs,cjs,ts}']` | Arquivos considerados testes |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção   | Tipo       | Padrão                           | Descrição                      |
+| :------ | :--------- | :------------------------------- | :----------------------------- |
+| `files` | `string[]` | `['tests/**/*.{js,mjs,cjs,ts}']` | Arquivos considerados testes   |
+| `rules` | `object`   | `{}`                             | Regras adicionais ou overrides |
 
 #### `vitest`
 
-| Opção | Tipo | Padrão | Descrição |
-| :--- | :--- | :--- | :--- |
-| `files` | `string[]` | `undefined` | Sobrescreve os padrões de arquivos |
-| `fn` | `string` | `'test'` | Função de teste preferida: `'test'` ou `'it'` |
-| `titlePattern` | `string` | Gherkin PT-BR | Regex para títulos de teste |
-| `titleMessage` | `string` | Mensagem PT-BR | Mensagem emitida para títulos fora do padrão |
-| `maxNestedDescribe` | `number` | `3` | Limite de `describe()` aninhados |
-| `rules` | `object` | `{}` | Regras adicionais ou overrides |
+| Opção               | Tipo       | Padrão         | Descrição                                     |
+| :------------------ | :--------- | :------------- | :-------------------------------------------- |
+| `files`             | `string[]` | `undefined`    | Sobrescreve os padrões de arquivos            |
+| `fn`                | `string`   | `'test'`       | Função de teste preferida: `'test'` ou `'it'` |
+| `titlePattern`      | `string`   | Gherkin PT-BR  | Regex para títulos de teste                   |
+| `titleMessage`      | `string`   | Mensagem PT-BR | Mensagem emitida para títulos fora do padrão  |
+| `maxNestedDescribe` | `number`   | `3`            | Limite de `describe()` aninhados              |
+| `rules`             | `object`   | `{}`           | Regras adicionais ou overrides                |
 
 ---
 

@@ -1,18 +1,16 @@
 <p align="center">
-  <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="180" />
+  <img src="images/kitsune-lint.png" alt="kitsune-lint logo" width="80" />
 </p>
 
-# Kitsune Lint
+<h1 align="center">Kitsune Lint</h1>
 
-> **English** | [Português](README.pt-BR.md)
+<p align="center">
+  <strong>English</strong> | <a href="README.pt-BR.md">Português</a>
+</p>
 
-Opinionated, modular **ESLint**, **Prettier**, and **Stylelint** configurations for high-quality **Vue 3**, **TypeScript**, and **Vitest** codebases. Clean code with sharp rules.
+Battle-tested **ESLint**, **Prettier**, and **Stylelint** guidelines for **Vue 3**, **TypeScript**, and **Vitest** — delivering ready-to-use security and clean code guardrails for modern, AI-assisted projects.
 
-Helps developers kickstart JavaScript/TypeScript projects without the headache of setting up rules one by one, providing production-ready security, linting, and formatting guardrails out of the box to guarantee clean, secure code — especially in AI-assisted development environments.
-
-Officially maintained by **[Polariens](https://github.com/polariens)**, a non-profit institution dedicated to sustainable open-source software and developer productivity.
-
-> **Kitsune** (狐) is the mythical fox of Japanese folklore — clever, agile, and able to shapeshift to fit any context. Like the kitsune, this package adapts seamlessly to your codebase: select the modules and options you need, and it composes the exact rules for your setup. Clean code with the precision of a fox.
+> **Kitsune (狐)** embodies agility and precision: modular rules that adapt to form the ideal setup for your ecosystem.
 
 ---
 
