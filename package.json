@@ -14,13 +14,16 @@
     "pinia",
     "kitsune"
   ],
-  "homepage": "https://github.com/Merieli/kitsune-lint#readme",
+  "homepage": "https://github.com/polariens/kitsune-lint#readme",
   "bugs": {
-    "url": "https://github.com/Merieli/kitsune-lint/issues"
+    "url": "https://github.com/polariens/kitsune-lint/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Merieli/kitsune-lint.git"
+    "url": "git+https://github.com/polariens/kitsune-lint.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "license": "MIT",
   "author": "Polariens",
